@@ -1,3 +1,27 @@
+# How to Download and Install npm
+
+This guide will help you download and install **npm (Node Package Manager)** on your system.
+
+---
+
+## Step 1: Check if Node.js and npm are Already Installed
+
+1. Open a terminal or command prompt.
+2. Run the following commands:
+   ```bash
+   `node -v`
+3. Optional: Update npm
+    `npm install -g npm@latest`
+
+## Step 2: Download and Install Node.js:
+
+npm is bundled with Node.js, so installing Node.js will also install npm.
+
+1. Visit the official Node.js website: https://nodejs.org.
+2. Download the LTS (Long-Term Support) version for stability or the Current version for the latest features.
+3. Windows/Mac: Follow the setup wizard.
+4. During installation, ensure the option to install npm is checked (it is selected by default).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
