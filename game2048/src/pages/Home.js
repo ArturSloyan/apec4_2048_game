@@ -1,5 +1,6 @@
 import React from "react";
 import Phaser from "phaser";
+import Game from "../components/Game"
 
 class Example extends Phaser.Scene {
   preload() {
@@ -32,6 +33,7 @@ class Example extends Phaser.Scene {
 const Home = () => {
   const config = {
     type: Phaser.AUTO,
+    parent: "phaser-container",
     width: 800,
     height: 600,
     scene: Example,
@@ -43,11 +45,10 @@ const Home = () => {
     },
   };
 
-  // needs to be here, to see the phas3r image
-  const game = new Phaser.Game(config);
-
   return (
-    <div>Hallo</div>
+    <div>
+      <Game config={config}/>
+    </div>
   );
 };
 
