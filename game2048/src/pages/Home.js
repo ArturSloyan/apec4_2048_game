@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import Game from "../components/Game"
+import Game from "../components/GameComponent"
 
 class Example extends Phaser.Scene {
   preload() {
