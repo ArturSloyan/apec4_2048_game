@@ -1,14 +1,14 @@
 import Phaser from "phaser";
 import Game from "../components/GameComponent"
-import { Example } from "../components/scenes/Example";
+import { Grid } from "../components/scenes/Grid";
 
 const Home = () => {
   const config = {
     type: Phaser.AUTO,
     parent: "phaser-container",
-    width: 800,
-    height: 600,
-    scene: Example,
+    width: 500,
+    height: 500,
+    scene: Grid,
     physics: {
       default: "arcade",
       arcade: {
@@ -18,7 +18,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div style={{margin: 20}}>
       <Game config={config}/>
     </div>
   );
