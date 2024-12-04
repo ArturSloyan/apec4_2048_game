@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { Client } = require('pg');
+const cors = require('cors');
 
 const app = express();
 const port = 3001;
@@ -50,3 +51,16 @@ app.post('/register', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
+
+///
+
+app.use(cors());
+
+// Route für das Login
+app.use('/login', (req, res) => {
+  res.send({
+    token: 'test123'
+  });
+});
+
+app.listen(port, () => console.log(`API is running on http://localhost:${port}/login`));
