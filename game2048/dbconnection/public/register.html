@@ -2,58 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <link rel="stylesheet" type="text/css" href="loginRegisterStyle.css">
+    <script src="registerFormLogic.js"></script>
     <title>User Registration</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        h1 {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .message {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: red;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -66,39 +18,5 @@
         </form>
         <p class="message" id="message"></p>
     </div>
-    <script>
-        const form = document.getElementById('registerForm');
-        const messageElement = document.getElementById('message');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const response = await fetch('/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, email, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    messageElement.style.color = 'green';
-                    messageElement.textContent = data.message;
-                    form.reset();
-                } else {
-                    messageElement.style.color = 'red';
-                    messageElement.textContent = data.message || 'Failed to register!';
-                }
-            } catch (error) {
-                messageElement.style.color = 'red';
-                messageElement.textContent = 'Error: Could not connect to the server!';
-            }
-        });
-    </script>
 </body>
 </html>
