@@ -1,6 +1,10 @@
 const express = require('express');
 const path = require('path');
 const { Client } = require('pg');
+const cors = require('cors');
+
+// allows front-end to communicate with server
+app.use(cors());
 
 const app = express();
 const port = 3001;
@@ -14,16 +18,16 @@ const client = new Client({
     port: 5432,
 });
 
-// Verbindung herstellen
+// create connection
 client.connect()
     .then(() => console.log('Connected to PostgreSQL'))
     .catch(err => console.error('Connection error', err.stack));
 
-// Middleware
+// middleware
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Route für die Registrierung
+// route for registration
 app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
 
@@ -46,7 +50,7 @@ app.post('/register', async (req, res) => {
     }
 });
 
-// Server starten
+// start server
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });

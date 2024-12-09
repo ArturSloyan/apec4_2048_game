@@ -1,32 +1,33 @@
-        const form = document.getElementById('registerForm');
-        const messageElement = document.getElementById('message');
+document.getElementById('registerForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const response = await fetch('/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, email, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    messageElement.style.color = 'green';
-                    messageElement.textContent = data.message;
-                    form.reset();
-                } else {
-                    messageElement.style.color = 'red';
-                    messageElement.textContent = data.message || 'Failed to register!';
-                }
-            } catch (error) {
-                messageElement.style.color = 'red';
-                messageElement.textContent = 'Error: Could not connect to the server!';
-            }
+ try {
+        const response = await fetch('http://localhost:3001/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                email: email,
+                password: password
+            })            
         });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            document.getElementById('message').textContent = "Erfolgreich registriert!";
+            document.getElementById('message').style.color = 'green';
+        } else {
+            document.getElementById('message').textContent = result.message || "Fehler beim Registrieren. Bitte versuche es erneut.";
+        }
+    } catch (error) {
+        document.getElementById('message').textContent = "Es gab einen Fehler: " + error.message;
+        document.getElementById('message').style.color = 'red';
+    }
+});

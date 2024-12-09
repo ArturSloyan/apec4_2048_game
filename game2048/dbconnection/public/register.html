@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <link rel="stylesheet" type="text/css" href="loginRegisterStyle.css">
-    <script src="registerFormLogic.js"></script>
-    <title>User Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrierungsformular</title>
+    <link rel="stylesheet" href="loginRegisterStyle.css">
 </head>
 <body>
     <div class="container">
-        <h1>Register</h1>
+        <h1>Registrieren</h1>
         <form id="registerForm">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="email" id="email" placeholder="Email Address" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit">Register</button>
+            <label for="username">Benutzername</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Passwort</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Registrieren</button>
         </form>
-        <p class="message" id="message"></p>
+        <p id="message"></p>
     </div>
+
+    <script src="registerFormLogic.js"></script>
 </body>
 </html>
