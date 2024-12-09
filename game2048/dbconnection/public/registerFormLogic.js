@@ -1,4 +1,4 @@
-document.getElementById('registerForm').addEventListener('submit', async function(event) {
+document.getElementById('registerForm').addEventListener('submit', async function (event) {
     event.preventDefault();
 
     const username = document.getElementById('username').value;
@@ -14,7 +14,7 @@ document.getElementById('registerForm').addEventListener('submit', async functio
             body: JSON.stringify({
                 username: username,
                 email: email,
-                password: password
+                password: password,
             })            
         });
 

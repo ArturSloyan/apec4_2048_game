@@ -1,10 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { Client } = require('pg');
-const cors = require('cors');
-
-// allows front-end to communicate with server
-app.use(cors());
+const { saltHashPassword } = require('./bcrypt-password-hash/passwordHashing.cjs');
 
 const app = express();
 const port = 3001;
@@ -36,11 +33,14 @@ app.post('/register', async (req, res) => {
     }
 
     try {
+        // hash password
+        const hashedPassword = await saltHashPassword(password);
+
         const query = `
             INSERT INTO "User" (Username, EmailAddress, Password)
             VALUES ($1, $2, $3) RETURNING UserId
         `;
-        const values = [username, email, password];
+        const values = [username, email, hashedPassword];
 
         const result = await client.query(query, values);
         res.status(201).json({ message: 'User registered successfully!', userId: result.rows[0].userid });
