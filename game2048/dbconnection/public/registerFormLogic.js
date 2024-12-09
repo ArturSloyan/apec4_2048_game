@@ -4,6 +4,17 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const password2 = document.getElementById('passwordagain').value;
+
+    function verifyPasswordsMatch(inputPassword1, inputPassword2) {
+        return inputPassword1 === inputPassword2; // compare the passwords
+    }
+
+    if (!verifyPasswordsMatch(password, password2)) {
+        document.getElementById('message').textContent = "Passwörter stimmen nicht überein.";
+        document.getElementById('message').style.color = 'red';
+        return; 
+    }
 
  try {
         const response = await fetch('http://localhost:3001/register', {
