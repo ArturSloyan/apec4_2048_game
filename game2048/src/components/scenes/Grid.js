@@ -1,30 +1,34 @@
 import Phaser from "phaser";
 
 export class Grid extends Phaser.Scene {
-  constructor() {
-    super();
-  }
+  rect;
+  cursors;
 
-  preload() {
-    this.load.image("grid", "assets/grid.svg");
-    this.load.image("two", "assets/2.svg");
-    // this.load.image("four", "assets/4.svg");
-  }
+  preload() {}
 
   create() {
+    this.rect = this.add.rectangle(250, 255, 50, 50, 0xffffff);
+    this.physics.add.existing(this.rect, false);
 
-    // background
-    this.image = this.add.image(250, 250, "grid");   
+    this.cursors = this.input.keyboard.createCursorKeys();
+  }
 
-    // blocks???
-    // for (var y = 1; y < 5; y++) {
-    //   for (var x = 1; x < 5; x++) {
-        
-    //     this.image = this.add.image(x * 100, y * 100, "two");
-    //   }
-    // }
+  update() {
+    this.rect.body.setVelocity(0);
 
-    this.image = this.add.image(60, 60, "two");
-    this.image = this.add.image(190, 60, "two");
+    if (this.cursors.left.isDown) {
+      // rectangle move left
+      this.rect.body.setVelocityX(-300);
+    } else if (this.cursors.right.isDown) {
+      // rectangle move right
+      this.rect.body.setVelocityX(300);
+    }
+
+    if (this.cursors.up.isDown) {
+      // rectangle move up
+      this.rect.body.setVelocityY(-300);
+    } else if (this.cursors.down.isDown)
+      // rectangle move down {
+      this.rect.body.setVelocityY(300);
   }
 }

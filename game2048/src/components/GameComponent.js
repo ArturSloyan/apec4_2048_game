@@ -1,9 +1,24 @@
 import { useEffect } from "react";
 import Phaser from "phaser";
+// import { Example } from "./scenes/Example";
+import { Grid } from "./scenes/Grid";
 
-// creates game
-// config -> is currently created in Home.js in pages Folder
-const Game = ({ config }) => {
+export default function GameComponent() {
+  const config = {
+    type: Phaser.AUTO,
+    parent: "game-container",
+    width: 500,
+    height: 500,
+    physics: {
+      default: "arcade",
+      arcade: {
+        gravity: { y: 0 },
+        debug: true,
+      },
+    },
+    scene: Grid,
+  };
+
   useEffect(() => {
     const game = new Phaser.Game(config);
 
@@ -12,9 +27,5 @@ const Game = ({ config }) => {
     };
   }, []);
 
-  return(
-     <div id="phaser-container"></div>
-  )
-};
-
-export default Game;
+  return <div id="game-container"></div>;
+}

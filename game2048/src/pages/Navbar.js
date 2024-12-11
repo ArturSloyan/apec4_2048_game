@@ -1,6 +1,6 @@
 import React from "react";
 import "./Navbar.css";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -11,7 +11,11 @@ const Navbar = () => {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/gamepage">Game 2048</NavLink>
+          </li>
+          <li>
+            {/* TODO: no login page -> See App.js Route */}
+            <NavLink>Login</NavLink>
           </li>
         </ul>
       </div>
