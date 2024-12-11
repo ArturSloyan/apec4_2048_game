@@ -46,10 +46,10 @@ app.post('/register', async (req, res) => {
         const existingEmail = await client.query(checkQueryEmail, [email]);
 
         if (existingUsername.rows.length > 0){
-            return res.status(409).json({ message: 'Benutzername existieret bereits.' });
+            return res.status(409).json({ message: 'Username already exists.' });
         }
         if (existingEmail.rows.length > 0) {
-            return res.status(410).json({ message: 'E-Mail-Adresse existiert bereits.' });
+            return res.status(410).json({ message: 'E-Mail-Address already exists.' });
         }
 
         // hash password to save in db
