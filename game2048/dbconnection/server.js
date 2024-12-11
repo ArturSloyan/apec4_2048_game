@@ -6,7 +6,7 @@ const { saltHashPassword } = require('./bcrypt-password-hash/passwordHashing.cjs
 const app = express();
 const port = 3001;
 
-// PostgreSQL-Verbindung konfigurieren
+// configure PostgreSQL connection
 const client = new Client({
     user: 'postgres',
     host: 'localhost',
