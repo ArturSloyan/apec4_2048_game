@@ -10,7 +10,6 @@ async function saltHashPassword(userPassword) {
 // storedHashedPassword represents the hashed password retrieved from database
 // userInputPasswort is the plaintext password provided by the user during login
 // the bcrypt.compare() function compares these two passwords and returns a boolean value indicating wheter they match
-
 const userInputPassword = '';
 const storedHashedPassword = '';
 bcrypt.compare(userInputPassword, storedHashedPassword, (err, result) => {

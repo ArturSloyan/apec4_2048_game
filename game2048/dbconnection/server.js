@@ -1,19 +1,14 @@
 const express = require('express');
 const path = require('path');
 const { Client } = require('pg');
+const config = require('./config.json');
 const { saltHashPassword } = require('./bcrypt-password-hash/passwordHashing.cjs');
 
 const app = express();
 const port = 3001;
 
 // configure PostgreSQL connection
-const client = new Client({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'userscoresmanagerdb',
-    password: '4fortnite',
-    port: 5432,
-});
+const client = new Client(config.db);
 
 // create connection
 client.connect()
