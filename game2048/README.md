@@ -2,7 +2,9 @@
 
 ## Current State
 
-Home page is a grid with two Blocks that don't do anything :/. Login page is just a hello html.
+Home page shows the HelloComponent.    
+Navbar can direct me to gamepage, where phaser is renderd and the game is show. Game right now is just a rectangle that you can move with arrows on your keyboard.  
+Login page does not exist
 
 ## Start the game
 
