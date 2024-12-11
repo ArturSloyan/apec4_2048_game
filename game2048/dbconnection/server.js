@@ -33,7 +33,26 @@ app.post('/register', async (req, res) => {
     }
 
     try {
-        // hash password
+        // check if username or email already exist
+        const checkQueryUsername = `
+            SELECT * FROM "User" WHERE Username = $1
+        `;
+
+        const checkQueryEmail =  `
+            SELECT * FROM "User" WHERE EmailAddress = $1
+        `;
+
+        const existingUsername = await client.query(checkQueryUsername, [username]);
+        const existingEmail = await client.query(checkQueryEmail, [email]);
+
+        if (existingUsername.rows.length > 0){
+            return res.status(409).json({ message: 'Benutzername existieret bereits.' });
+        }
+        if (existingEmail.rows.length > 0) {
+            return res.status(410).json({ message: 'E-Mail-Adresse existiert bereits.' });
+        }
+
+        // hash password to save in db
         const hashedPassword = await saltHashPassword(password);
 
         const query = `

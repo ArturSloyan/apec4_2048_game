@@ -6,11 +6,7 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     const password = document.getElementById('password').value;
     const password2 = document.getElementById('passwordagain').value;
 
-    function verifyPasswordsMatch(inputPassword1, inputPassword2) {
-        return inputPassword1 === inputPassword2; // compare the passwords
-    }
-
-    if (!verifyPasswordsMatch(password, password2)) {
+    if (password !== password2) {
         document.getElementById('message').textContent = "Passwörter stimmen nicht überein.";
         document.getElementById('message').style.color = 'red';
         return; 
@@ -33,7 +29,13 @@ document.getElementById('registerForm').addEventListener('submit', async functio
 
         if (response.ok) {
             document.getElementById('message').textContent = "Erfolgreich registriert!";
-            document.getElementById('message').style.color = 'green';
+            document.getElementById('message').style.color = 'green';            
+        } else if (response.status === 409) {
+            document.getElementById('message').textContent = result.message || "Username existiert bereits!";
+            document.getElementById('message').style.color = 'red';
+        } else if (response.status === 410) {
+            document.getElementById('message').textContent = result.message || "E-Mail-Adresse existiert bereits!";
+            document.getElementById('message').style.color = 'red';            
         } else {
             document.getElementById('message').textContent = result.message || "Fehler beim Registrieren. Bitte versuche es erneut.";
         }

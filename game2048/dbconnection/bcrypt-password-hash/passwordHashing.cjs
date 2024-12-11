@@ -8,5 +8,3 @@ async function saltHashPassword(userPassword) {
 }
 
 module.exports = { saltHashPassword }; // export, so it can be used in other documents
-
-
