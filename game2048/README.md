@@ -63,6 +63,10 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+### node server.js
+
+If you open the terminal and navigate to the directory `cd game2048\dbconnection` and execute the command `node server.js`, the PostgreSQL Server will start running on _port 3001_. Only after starting the server, you will be able to use the register html page (_http://localhost:3001/register.html_) to successfully register a user. If you make changes in the code, you need to restart the server and refresh the html page, so that the changes are adopted.
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
@@ -92,3 +96,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
