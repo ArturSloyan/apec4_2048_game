@@ -2,10 +2,14 @@ const express = require('express');
 const path = require('path');
 const { Client } = require('pg');
 const config = require('./config.json');
-const { saltHashPassword } = require('./bcrypt-password-hash/passwordHashing.cjs');
+const { saltHashPassword, comparePasswords } = require('./bcrypt-password-hash/passwordHashing');
 
 const app = express();
 const port = 3001;
+
+// middleware
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // configure PostgreSQL connection
 const client = new Client(config.db);
@@ -15,9 +19,36 @@ client.connect()
     .then(() => console.log('Connected to PostgreSQL'))
     .catch(err => console.error('Connection error', err.stack));
 
-// middleware
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+
+// route for login
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body; // User-Eingaben
+
+    try {
+        // find user based on their username
+        const query = 'SELECT * FROM "User" WHERE Username = $1';
+        const result = await client.query(query, [username]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        const user = result.rows[0]; // user data from db
+        const storedHashedPassword = user.password; // hashed password from db
+
+        // compare passwords
+        const isMatch = await comparePasswords(password, storedHashedPassword);
+
+        if (isMatch) {
+            res.status(200).json({ message: 'Login successfull!' });
+        } else {
+            res.status(401).json({ message: 'Password is wrong.' });
+        }
+    } catch (error) {
+        console.error('Failed to Login:', error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+});
 
 // route for registration
 app.post('/register', async (req, res) => {
