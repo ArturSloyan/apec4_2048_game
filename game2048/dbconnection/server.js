@@ -1,22 +1,21 @@
 const express = require('express');
 const path = require('path');
-const { Client } = require('pg');
+const { Pool } = require('pg');
 const cors = require('cors');
 
 const app = express();
-const port = 3001;
 
 // PostgreSQL-Verbindung konfigurieren
-const client = new Client({
+const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'userscoresmanagerdb',
-    password: '4fortnite',
+    password: 'IhASub20Ja',
     port: 5432,
 });
 
 // Verbindung herstellen
-client.connect()
+pool.connect()
     .then(() => console.log('Connected to PostgreSQL'))
     .catch(err => console.error('Connection error', err.stack));
 
@@ -39,7 +38,7 @@ app.post('/register', async (req, res) => {
         `;
         const values = [username, email, password];
 
-        const result = await client.query(query, values);
+        const result = await pool.query(query, values);
         res.status(201).json({ message: 'User registered successfully!', userId: result.rows[0].userid });
     } catch (error) {
         console.error('Error while inserting user:', error.message);
@@ -47,20 +46,32 @@ app.post('/register', async (req, res) => {
     }
 });
 
-// Server starten
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-});
-
-///
+// /// TODO error getting the username and password, user credentials, token JWT
 
 app.use(cors());
 
-// Route für das Login
-app.use('/login', (req, res) => {
-  res.send({
-    token: 'test123'
-  });
+app.post('/login', async (req, res) => {
+
+    const { username, password } = req.body;
+
+    // Validate inputs
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Username and password are required' });
+    }
+    console.log("input valid")
+    // Query to check for username and password
+    const query = 'SELECT * FROM Users WHERE username = $1 AND password = $2';
+    await pool.query(query, [username, password], (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: 'Database query error' });
+        }
+
+        if (result.rows.length > 0) {
+            return res.status(200).json({ message: 'Login successful' });
+        } else {
+            return res.status(401).json({ error: 'Invalid username or password' });
+        }
+    });
 });
 
-app.listen(port, () => console.log(`API is running on http://localhost:${port}/login`));
+app.listen(3001, () => console.log(`API is running on http://localhost:3001/login`));
