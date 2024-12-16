@@ -55,7 +55,7 @@ function Register() {
         setMessageColor("red");
       }
     } catch (error) {
-      setMessage("Es gab einen Fehler: " + error.message);
+      setMessage("Error: " + error.message);
       setMessageColor("red");
     }
   };
