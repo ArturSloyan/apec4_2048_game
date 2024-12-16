@@ -22,7 +22,7 @@ client.connect()
 
 // route for login
 app.post('/login', async (req, res) => {
-    const { username, password } = req.body; // User-Eingaben
+    const { username, password } = req.body; // user innput
 
     try {
         // find user based on their username
