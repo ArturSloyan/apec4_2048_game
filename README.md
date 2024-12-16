@@ -65,6 +65,19 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 ## Running Database-Server via command `node server.js` 
 
+### Setting up the config-File
+Please note that to start the database, you must create a _config.json_-File in the _backend_-folder. That json-File must contain the following content:  
+`{  
+    "db": {  
+        "user": "POSTGRES",  
+        "host": "LOCALHOST",  
+        "database": "DATABASE_NAME",  
+        "password": "DATABASE_PASSWORD",  
+        "port": 5432  
+    }  
+}`  
+This content defines the information for the _server.js_, in which the client-data of the database is being fetched. 
+
 If you open the terminal and navigate to the directory `cd game2048\dbconnection` and execute the command `node server.js`, the PostgreSQL Server will start running on _port 3001_. Only after starting the server, you will be able to use the register html page (_http://localhost:3001/register.html_) to successfully register a user. If you make changes in the code, you need to restart the server and refresh the html page, so that the changes are adopted.
 
 ## Learn More
