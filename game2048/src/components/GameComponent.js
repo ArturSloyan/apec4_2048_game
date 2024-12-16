@@ -7,12 +7,12 @@ export default function GameComponent() {
   const config = {
     type: Phaser.AUTO,
     parent: "game-container",
-    width: 500,
-    height: 500,
+    width: 800,
+    height: 600,
     physics: {
-      default: "arcade",
+      default: "matter",
       arcade: {
-        gravity: { y: 0 },
+        gravity: { y: 0 , x:0},
         debug: true,
       },
     },
