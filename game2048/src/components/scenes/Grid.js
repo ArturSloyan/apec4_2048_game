@@ -5,12 +5,11 @@ export class Grid extends Phaser.Scene {
   cursors;
 
   preload() {
-    this.load.setBaseURL("../../");
-    this.load.image("two", "assets/2.svg");
+    this.load.image("two", "./assets/2.svg");
   }
 
   create() {
-    this.imageOne = this.matter.add.image(700, 200, "two");
+    this.imageOne = this.matter.add.image(500, 200, "two");
 
     this.matter.world.setBounds(0, 0, 800, 600);
     this.cursors = this.input.keyboard.createCursorKeys();
