@@ -3,12 +3,14 @@ const path = require('path');
 const { Client } = require('pg');
 const config = require('./config.json');
 const { saltHashPassword, comparePasswords } = require('./bcrypt-password-hash/passwordHashing.cjs');
-// const passwordHashing = require('./bcrypt-password-hash/passwordHashing.cjs');
+const cors = require('cors');
+
 
 const app = express();
 const port = 3001;
 
 // middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
