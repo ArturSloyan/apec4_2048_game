@@ -7,8 +7,8 @@ export default function GameComponent() {
   const config = {
     type: Phaser.AUTO,
     parent: "game-container",
-    width: 600,
-    height: 600,
+    width: 500,
+    height: 500,
     physics: {
       default: "arcade",
       arcade: {
@@ -35,7 +35,7 @@ export default function GameComponent() {
         //    tileBias: 16,
         //    forceX: false,
         //    isPaused: false,
-        allowRotation: true,
+        // allowRotation: true,
         debug: true,
         // debugShowBody: true,
         // debugShowStaticBody: true,
