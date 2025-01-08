@@ -3,11 +3,14 @@ const path = require('path');
 const { Client } = require('pg');
 const config = require('./config.json');
 const { saltHashPassword, comparePasswords } = require('./bcrypt-password-hash/passwordHashing.cjs');
+const cors = require('cors');
+
 
 const app = express();
 const port = 3001;
 
 // middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -22,7 +25,7 @@ client.connect()
 
 // route for login
 app.post('/login', async (req, res) => {
-    const { username, password } = req.body; // User-Eingaben
+    const { username, password } = req.body; // user innput
 
     try {
         // find user based on their username
