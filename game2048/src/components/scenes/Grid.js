@@ -18,7 +18,7 @@ export class Grid extends Phaser.Scene {
 
   update() {
 
-    
+    // get coordinates and use belov to move
 
     if (this.cursors.left.isDown) {
       // rectangle move left
