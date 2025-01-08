@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const { Client } = require('pg');
 const config = require('./config.json');
-const { saltHashPassword, comparePasswords } = require('./bcrypt-password-hash/passwordHashing');
+const { saltHashPassword, comparePasswords } = require('./bcrypt-password-hash/passwordHashing.cjs');
 // const passwordHashing = require('./bcrypt-password-hash/passwordHashing.cjs');
 
 const app = express();
