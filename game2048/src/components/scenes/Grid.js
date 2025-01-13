@@ -5,11 +5,22 @@ export class Grid extends Phaser.Scene {
   grid; // 2D-Array for game field
   blockSprites; // saves block-objects
 
-  preload() {
-    this.load.image("two", "./assets/2.svg");
-    this.load.image("four", "./assets/4.svg");
-    this.load.image("eight", "./assets/8.svg");
-  }
+preload() {
+    this.load.image("2", "./assets/2.svg");
+    this.load.image("4", "./assets/4.svg");
+    this.load.image("8", "./assets/8.svg");
+    this.load.image("16", "./assets/16.svg");
+    this.load.image("32", "./assets/32.svg");
+    this.load.image("64", "./assets/64.svg");
+    this.load.image("128", "./assets/128.svg");
+    this.load.image("256", "./assets/256.svg");
+    this.load.image("512", "./assets/512.svg");
+    this.load.image("1024", "./assets/1024.svg");
+    this.load.image("2048", "./assets/2048.svg");
+    this.load.image("4096", "./assets/4096.svg");
+    this.load.image("8192", "./assets/8192.svg");
+}
+
 
   create() {
     // initialize 4x4-Grid (null = empty, Objekt = block-datas)
@@ -23,10 +34,11 @@ export class Grid extends Phaser.Scene {
     this.blockSprites = [];
 
     // TESTING add start blocks
-    this.addBlock(0, 0, "two", 2);
-    this.addBlock(0, 3, "four", 4);
-    this.addBlock(1, 0, "two", 2);
-    this.addBlock(1, 1, "eight", 8);
+    this.addBlock(0, 0, "2", 2);
+    this.addBlock(0, 3, "4", 4);
+    this.addBlock(1, 0, "2", 2);
+    this.addBlock(1, 1, "8", 8);
+    this.addBlock(1, 2, "16", 16);
 
     // key inputs
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -164,27 +176,55 @@ export class Grid extends Phaser.Scene {
     }
   }
 
-  mergeBlocks(block, targetBlock, row, col) {
-    // destroy target block and increase value 
-    this.tweens.add({
-      targets: block,
-      x: 100 + col * 100,
-      y: 100 + row * 100,
-      duration: 200,
-      onComplete: () => {
-        targetBlock.value *= 2; // double the value
-        targetBlock.setTexture(targetBlock.value === 4 ? "four" : "two"); // refresh texture (here only  2 & 4)
-        targetBlock.setTexture(targetBlock.value === 8 ? "eight" : "four");
-        block.destroy(); // destroy block
+  // mergeBlocks(block, targetBlock, row, col) {
+  //   // destroy target block and increase value 
+  //   this.tweens.add({
+  //     targets: block,
+  //     x: 100 + col * 100,
+  //     y: 100 + row * 100,
+  //     duration: 200,
+  //     onComplete: () => {
+  //       targetBlock.value *= 2; // double the value
+  //       targetBlock.setTexture(targetBlock.value === 4 ? "four" : "two"); // refresh texture (here only 2 & 4)
+  //       block.destroy(); // destroy block
 
-        // animation for target block
-        this.tweens.add({
-          targets: targetBlock,
-          scale: 1.2,
-          duration: 100,
-          yoyo: true,
-        });
-      },
-    });
-  }
+  //       // animation for target block
+  //       this.tweens.add({
+  //         targets: targetBlock,
+  //         scale: 1.2,
+  //         duration: 100,
+  //         yoyo: true,
+  //       });
+  //     },
+  //   });
+  // }
+  
+  mergeBlocks(block, targetBlock, row, col) {
+  // destroy target block and increase value
+  this.tweens.add({
+    targets: block,
+    x: 100 + col * 100,
+    y: 100 + row * 100,
+    duration: 200,
+    onComplete: () => {
+      // double value of target block
+      targetBlock.value *= 2;
+
+      // update texture (number on block) dynamically based on the value
+      const textureName = targetBlock.value.toString();
+      targetBlock.setTexture(textureName);
+
+      // destroy the merging block
+      block.destroy();
+
+      // animation for the target block
+      this.tweens.add({
+        targets: targetBlock,
+        scale: 1.2,
+        duration: 100,
+        yoyo: true,
+      });
+    },
+  });
+}
 }
