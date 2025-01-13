@@ -21,9 +21,8 @@ preload() {
     this.load.image("8192", "./assets/8192.svg");
 }
 
-
   create() {
-    // initialize 4x4-Grid (null = empty, Objekt = block-datas)
+    // initialize 4x4-Grid (null = empty, object = block-data)
     this.grid = [
       [null, null, null, null],
       [null, null, null, null],
@@ -33,12 +32,13 @@ preload() {
 
     this.blockSprites = [];
 
-    // TESTING add start blocks
+    // TESTING add starting blocks to grid
     this.addBlock(0, 0, "2", 2);
     this.addBlock(0, 3, "4", 4);
     this.addBlock(1, 0, "2", 2);
     this.addBlock(1, 1, "8", 8);
-    this.addBlock(1, 2, "16", 16);
+    this.addBlock(1, 2, "32", 32);
+    this.addBlock(2, 0, "32", 32);
 
     // key inputs
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -175,29 +175,6 @@ preload() {
       }
     }
   }
-
-  // mergeBlocks(block, targetBlock, row, col) {
-  //   // destroy target block and increase value 
-  //   this.tweens.add({
-  //     targets: block,
-  //     x: 100 + col * 100,
-  //     y: 100 + row * 100,
-  //     duration: 200,
-  //     onComplete: () => {
-  //       targetBlock.value *= 2; // double the value
-  //       targetBlock.setTexture(targetBlock.value === 4 ? "four" : "two"); // refresh texture (here only 2 & 4)
-  //       block.destroy(); // destroy block
-
-  //       // animation for target block
-  //       this.tweens.add({
-  //         targets: targetBlock,
-  //         scale: 1.2,
-  //         duration: 100,
-  //         yoyo: true,
-  //       });
-  //     },
-  //   });
-  // }
   
   mergeBlocks(block, targetBlock, row, col) {
   // destroy target block and increase value
@@ -214,10 +191,10 @@ preload() {
       const textureName = targetBlock.value.toString();
       targetBlock.setTexture(textureName);
 
-      // destroy the merging block
+      // destroy merging block
       block.destroy();
 
-      // animation for the target block
+      // animation for target block
       this.tweens.add({
         targets: targetBlock,
         scale: 1.2,
