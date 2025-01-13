@@ -2,7 +2,7 @@ import GameComponent from "../components/GameComponent";
 
 const Home = () => {
   return (
-    <div style={{ margin: 20 }}>
+    <div>
       <GameComponent />
     </div>
   );

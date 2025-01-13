@@ -1,5 +1,5 @@
 import React from "react";
-import "./Navbar.css";
+import "../styles/Navbar.css";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
@@ -14,7 +14,10 @@ const Navbar = () => {
             <NavLink to="/gamepage">Game 2048</NavLink>
           </li>
           <li>
-            {/* TODO: no login page -> See App.js Route */}
+            <NavLink to="/register">Register</NavLink>
+          </li>
+          <li>
+            {/* TODO: no login page link -> Add in App.js Route */}
             <NavLink>Login</NavLink>
           </li>
         </ul>

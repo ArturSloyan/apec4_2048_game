@@ -9,32 +9,29 @@ export class Grid extends Phaser.Scene {
   }
 
   create() {
-    this.imageOne = this.matter.add.image(500, 200, "two");
+    this.imageOne = this.physics.add.image(50, 50, "two");
+    this.imageOne.setCollideWorldBounds(true);
 
-    this.matter.world.setBounds(0, 0, 800, 600);
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   update() {
+
     if (this.cursors.left.isDown) {
       // rectangle move left
-      this.imageOne.setVelocityX(-50);
+      this.imageOne.setVelocityX(-300);
     } else if (this.cursors.right.isDown) {
       // rectangle move right
-      this.imageOne.setVelocityX(50);
-    } else {
-      this.imageOne.setVelocityX(0);
-    }
-
-    if (this.cursors.up.isDown) {
+      this.imageOne.setVelocityX(300);
+    } else if (this.cursors.up.isDown) {
       // rectangle move up
-      this.imageOne.setVelocityY(-50);
+      this.imageOne.setVelocityY(-300);
     } else if (this.cursors.down.isDown) {
       // rectangle move down {
-      this.imageOne.setVelocityY(50);
-    }
-    else {
+      this.imageOne.setVelocityY(300);
+    } else {
       this.imageOne.setVelocityY(0);
+      this.imageOne.setVelocityX(0);
     }
   }
 }

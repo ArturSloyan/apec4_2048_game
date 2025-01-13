@@ -1,7 +1,7 @@
 # Current State
 
-Home page shows the HelloComponent.    
-Navbar can direct me to gamepage, where phaser is renderd and the game is shown. The game is currently just one block that can ba move with arrows on the keyboard.  
+Home page, Game page and Register page exist. Home just show a message, Game is currently one block that can be moved with arrows on your keayboard and for Register you need to start database server (see below)
+
 Login page does not exist.
 
 # Start the game
@@ -66,7 +66,9 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 # Running Database-Server via command `node server.js` 
 
 ## Setting up the config-File
+
 Please note that to start the database, you must create a _config.json_-File in the _backend_-folder. That json-File must contain the following content:  
+
 `{  
     "db": {  
         "user": "POSTGRES",  
@@ -76,6 +78,13 @@ Please note that to start the database, you must create a _config.json_-File in 
         "port": 5432  
     }  
 }`  
+
 This content defines the information for the _server.js_, in which the client-data of the database is being fetched. 
 
-If you open the terminal and navigate to the directory `cd game2048\dbconnection` and execute the command `node server.js`, the PostgreSQL Server will start running on _port 3001_. Only after starting the server, you will be able to use the register html page (_http://localhost:3001/register.html_) to successfully register a user. If you make changes in the code, you need to restart the server and refresh the html page, so that the changes are adopted.
+## Start database server
+
+If you open the terminal and navigate to the directory `cd game2048\dbconnection` and execute the command `node server.js`, the PostgreSQL Server will start running on _port 3001_.
+
+Only after starting the server, you will be able to use the register html page (_http://localhost:3001/register.html_) to successfully register a user. 
+
+If you make changes in the code, you need to restart the server and refresh the html page, so that the changes are adopted.
