@@ -5,7 +5,6 @@ const config = require('./config.json');
 const { saltHashPassword, comparePasswords } = require('./bcrypt-password-hash/passwordHashing.cjs');
 const cors = require('cors');
 
-
 const app = express();
 const port = 3001;
 
@@ -22,34 +21,39 @@ client.connect()
     .then(() => console.log('Connected to PostgreSQL'))
     .catch(err => console.error('Connection error', err.stack));
 
-
 // route for login
 app.post('/login', async (req, res) => {
-    const { username, password } = req.body; // user innput
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Email and password are required!' });
+    }
 
     try {
-        // find user based on their username
-        const query = 'SELECT * FROM "User" WHERE Username = $1';
-        const result = await client.query(query, [username]);
+        // Query to find the user by email
+        const query = `
+            SELECT * FROM "User" WHERE EmailAddress = $1
+        `;
+        const result = await client.query(query, [email]);
 
+        // If no user is found, return 401 (Unauthorized)
         if (result.rows.length === 0) {
-            return res.status(404).json({ message: 'User not found.' });
+            return res.status(401).json({ message: 'Invalid email or password.' });
         }
 
-        const user = result.rows[0]; // user data from db
-        const storedHashedPassword = user.password; // hashed password from db
+        const user = result.rows[0];
 
-        // compare passwords
-        const isMatch = await comparePasswords(password, storedHashedPassword);
-
-        if (isMatch) {
-            res.status(200).json({ message: 'Login successfull!' });
-        } else {
-            res.status(401).json({ message: 'Password is wrong.' });
+        // Verify the provided password matches the stored hashed password
+        const isPasswordValid = await comparePasswords(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: 'Invalid email or password.' });
         }
+
+        // Login successful - send response
+        res.status(200).json({ message: 'Login successful!', userId: user.userid });
     } catch (error) {
-        console.error('Failed to Login:', error);
-        res.status(500).json({ message: 'Internal server error.' });
+        console.error('Error during login:', error.message);
+        res.status(500).json({ message: 'Failed to login.', error: error.message });
     }
 });
 

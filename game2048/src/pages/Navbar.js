@@ -17,8 +17,7 @@ const Navbar = () => {
             <NavLink to="/register">Register</NavLink>
           </li>
           <li>
-            {/* TODO: no login page link -> Add in App.js Route */}
-            <NavLink>Login</NavLink>
+            <NavLink to="/login">Login</NavLink>
           </li>
         </ul>
       </div>
