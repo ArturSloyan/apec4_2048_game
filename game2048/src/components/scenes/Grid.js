@@ -33,8 +33,8 @@ export class Grid extends Phaser.Scene {
     this.blockSprites = [];
 
     this.addBlock(0, 0, "2", 2);    
-    this.addBlock(2, 0, "2", 2);
-    this.addBlock(0, 2, "4", 4);
+    this.addBlock(0, 1, "2", 2);
+    this.addBlock(0, 2, "2", 2);
 
     // key inputs
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -82,8 +82,6 @@ export class Grid extends Phaser.Scene {
   }
 
   moveBlocks(direction) {
-
-    console.log('move start');
     const size = 4;
 
     if (direction === "right") {
@@ -115,8 +113,6 @@ export class Grid extends Phaser.Scene {
         }
       }
     }
-
-    console.log('move end');
   }
 
   moveBlock(row, col, direction) {
@@ -197,6 +193,9 @@ export class Grid extends Phaser.Scene {
   }
 
   mergeBlocks(block, targetBlock, row, col) {
+    // double value of target block
+    targetBlock.value *= 2;
+
     // destroy target block and increase value
     this.tweens.add({
       targets: block,
@@ -204,9 +203,7 @@ export class Grid extends Phaser.Scene {
       y: 100 + row * 100,
       duration: 200,
       onComplete: () => {
-        // double value of target block
-        targetBlock.value *= 2;
-
+        
         // update texture (number on block) dynamically based on the value
         const textureName = targetBlock.value.toString();
         targetBlock.setTexture(textureName);
