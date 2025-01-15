@@ -5,7 +5,7 @@ export class Grid extends Phaser.Scene {
   grid; // 2D-Array for game field
   blockSprites; // saves block-objects
 
-preload() {
+  preload() {
     this.load.image("2", "./assets/2.svg");
     this.load.image("4", "./assets/4.svg");
     this.load.image("8", "./assets/8.svg");
@@ -19,7 +19,7 @@ preload() {
     this.load.image("2048", "./assets/2048.svg");
     this.load.image("4096", "./assets/4096.svg");
     this.load.image("8192", "./assets/8192.svg");
-}
+  }
 
   create() {
     // initialize 4x4-Grid (null = empty, object = block-data)
@@ -32,13 +32,9 @@ preload() {
 
     this.blockSprites = [];
 
-    // TESTING add starting blocks to grid
-    this.addBlock(0, 0, "2", 2);
-    this.addBlock(0, 3, "4", 4);
-    this.addBlock(1, 0, "2", 2);
-    this.addBlock(1, 1, "8", 8);
-    this.addBlock(1, 2, "32", 32);
-    this.addBlock(2, 0, "32", 32);
+    this.addBlock(0, 0, "2", 2);    
+    this.addBlock(2, 0, "2", 2);
+    this.addBlock(0, 2, "4", 4);
 
     // key inputs
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -47,20 +43,36 @@ preload() {
   update() {
     if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
       this.moveBlocks("right");
+      this.createBlock();
     }
     if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
       this.moveBlocks("left");
+      this.createBlock();
     }
     if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
       this.moveBlocks("up");
+      this.createBlock();
     }
     if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
       this.moveBlocks("down");
+      this.createBlock();
     }
   }
 
+  createBlock() {
+    var row;
+    var column;
+    do {
+      row = Math.floor(Math.random() * 4);
+      column = Math.floor(Math.random() * 4);
+
+    } while (this.grid[row][column] != null);
+    
+    this.addBlock(row, column, "2", 2);
+  }
+
   addBlock(row, col, texture, value) {
-    // add new block to grid
+    // add new block to grid    
     const block = this.physics.add.image(100 + col * 100, 100 + row * 100, texture);
     block.setCollideWorldBounds(true);
     block.value = value; // save value of block
@@ -70,33 +82,41 @@ preload() {
   }
 
   moveBlocks(direction) {
+
+    console.log('move start');
     const size = 4;
 
     if (direction === "right") {
       for (let row = 0; row < size; row++) {
-        for (let col = size - 2; col >= 0; col--) { // move from right to left
+        for (let col = size - 2; col >= 0; col--) {
+          // move from right to left
           this.moveBlock(row, col, direction);
         }
       }
     } else if (direction === "left") {
       for (let row = 0; row < size; row++) {
-        for (let col = 1; col < size; col++) { // move from left to right
+        for (let col = 1; col < size; col++) {
+          // move from left to right
           this.moveBlock(row, col, direction);
         }
       }
     } else if (direction === "up") {
       for (let col = 0; col < size; col++) {
-        for (let row = 1; row < size; row++) { // move from top to bottom
+        for (let row = 1; row < size; row++) {
+          // move from top to bottom
           this.moveBlock(row, col, direction);
         }
       }
     } else if (direction === "down") {
       for (let col = 0; col < size; col++) {
-        for (let row = size - 2; row >= 0; row--) { // move from bottom to top 
+        for (let row = size - 2; row >= 0; row--) {
+          // move from bottom to top
           this.moveBlock(row, col, direction);
         }
       }
     }
+
+    console.log('move end');
   }
 
   moveBlock(row, col, direction) {
@@ -175,33 +195,33 @@ preload() {
       }
     }
   }
-  
+
   mergeBlocks(block, targetBlock, row, col) {
-  // destroy target block and increase value
-  this.tweens.add({
-    targets: block,
-    x: 100 + col * 100,
-    y: 100 + row * 100,
-    duration: 200,
-    onComplete: () => {
-      // double value of target block
-      targetBlock.value *= 2;
+    // destroy target block and increase value
+    this.tweens.add({
+      targets: block,
+      x: 100 + col * 100,
+      y: 100 + row * 100,
+      duration: 200,
+      onComplete: () => {
+        // double value of target block
+        targetBlock.value *= 2;
 
-      // update texture (number on block) dynamically based on the value
-      const textureName = targetBlock.value.toString();
-      targetBlock.setTexture(textureName);
+        // update texture (number on block) dynamically based on the value
+        const textureName = targetBlock.value.toString();
+        targetBlock.setTexture(textureName);
 
-      // destroy merging block
-      block.destroy();
+        // destroy merging block
+        block.destroy();
 
-      // animation for target block
-      this.tweens.add({
-        targets: targetBlock,
-        scale: 1.2,
-        duration: 100,
-        yoyo: true,
-      });
-    },
-  });
-}
+        // animation for target block
+        this.tweens.add({
+          targets: targetBlock,
+          scale: 1.2,
+          duration: 100,
+          yoyo: true,
+        });
+      },
+    });
+  }
 }
