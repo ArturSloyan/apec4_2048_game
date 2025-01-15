@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import '../styles/loginRegisterStyle.css';
 
-function Login() {
+function Login({ onLogin }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-console.log("hi");
+
   const [message, setMessage] = useState("");
   const [messageColor, setMessageColor] = useState("red");
+
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleInputChange = (e) => {
     setFormData({
@@ -17,33 +20,32 @@ console.log("hi");
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-
     const { email, password } = formData;
 
     try {
       const response = await fetch("http://localhost:3001/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
       const result = await response.json();
 
       if (response.ok) {
-        setMessage("Login successful!");
-        setMessageColor("green");
-        // Redirect or handle successful login logic here
-      } else if (response.status === 401) {
-        setMessage(result.message || "Invalid credentials. Please try again.");
-        setMessageColor("red");
-      } else {
-        setMessage(result.message || "Failed to login. Please try again.");
+        localStorage.setItem("username", result.username); // Save username to localStorage
+        onLogin(result.username); // Notify parent of successful login
+        navigate("/"); // Redirect to homepage
+        
+        // Reload the page to reflect changes immediately
+        window.location.reload();
+      }
+      else {
+        setMessage(result.message || "Login failed.");
         setMessageColor("red");
       }
+      console.log(localStorage.username);
     } catch (error) {
       setMessage("Error: " + error.message);
       setMessageColor("red");
@@ -53,7 +55,7 @@ console.log("hi");
   return (
     <div className="container">
       <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleLogin}>
         <label htmlFor="email">E-Mail</label>
         <input
           type="email"

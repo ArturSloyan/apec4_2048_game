@@ -1,28 +1,23 @@
 import React from "react";
-import "../styles/Navbar.css";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Navbar = () => {
+function Navbar({ username, onLogout }) {
   return (
     <nav className="navbar">
-      <div className="navbar-center">
-        <ul className="nav-links">
-          <li>
-            <NavLink to="/">Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/gamepage">Game 2048</NavLink>
-          </li>
-          <li>
-            <NavLink to="/register">Register</NavLink>
-          </li>
-          <li>
-            <NavLink to="/login">Login</NavLink>
-          </li>
-        </ul>
+      <div className="nav-links">
+        <Link to="/">Home</Link>
+        <Link to="/gamepage">Game Page</Link>
+        <Link to="/register">Register</Link>
+        <Link to="/login">Login</Link>
       </div>
+      {username ? (
+        <div className="username-container">
+          <span>{username}</span>
+          <button onClick={onLogout}>Logout</button>
+        </div>
+      ) : null}
     </nav>
   );
-};
+}
 
 export default Navbar;
