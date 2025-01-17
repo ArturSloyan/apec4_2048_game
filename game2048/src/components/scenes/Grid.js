@@ -32,9 +32,9 @@ export class Grid extends Phaser.Scene {
 
     this.blockSprites = [];
 
-    this.addBlock(0, 0, "2", 2);    
-    this.addBlock(0, 1, "2", 2);
-    this.addBlock(0, 2, "2", 2);
+    // start with two random blocks
+    this.createBlock();
+    this.createBlock();
 
     // key inputs
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -66,7 +66,7 @@ export class Grid extends Phaser.Scene {
       row = Math.floor(Math.random() * 4);
       column = Math.floor(Math.random() * 4);
 
-    } while (this.grid[row][column] != null);
+    } while (this.grid[row][column] != null); // get free field
     
     this.addBlock(row, column, "2", 2);
   }
