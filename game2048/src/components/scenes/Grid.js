@@ -202,8 +202,7 @@ export class Grid extends Phaser.Scene {
       x: 100 + col * 100,
       y: 100 + row * 100,
       duration: 200,
-      onComplete: () => {
-        
+      onComplete: () => {        
         // update texture (number on block) dynamically based on the value
         const textureName = targetBlock.value.toString();
         targetBlock.setTexture(textureName);
