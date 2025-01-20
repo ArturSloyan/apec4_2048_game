@@ -1,6 +1,8 @@
 # Current State
 
-Home page, Game page and Register page exist. Home just show a message, Game is currently one block that can be moved with arrows on your keayboard and for Register you need to start database server (see below)
+- Home Page just show a message, 
+- Game Page is playable 
+- for Register you need to start database server (see below)
 
 Login page does not exist.
 
@@ -24,7 +26,7 @@ Run on path "./apec4_2048_game/game2048/
 npm start
 ```
 
-See localhost:3000
+See **localhost:3000**
 
 ## Available Scripts
 
