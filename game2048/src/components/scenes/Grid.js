@@ -3,7 +3,6 @@ import Phaser from "phaser";
 export class Grid extends Phaser.Scene {
   cursors;
   grid; // 2D-Array for game field
-  blockSprites; // saves block-objects
 
   preload() {
     this.load.image("2", "./assets/2.svg");
@@ -29,8 +28,6 @@ export class Grid extends Phaser.Scene {
       [null, null, null, null],
       [null, null, null, null],
     ];
-
-    this.blockSprites = [];
 
     // start with two random blocks
     this.createBlock();
@@ -78,7 +75,6 @@ export class Grid extends Phaser.Scene {
     block.value = value; // save value of block
 
     this.grid[row][col] = block; // save block in grid
-    this.blockSprites.push(block);
   }
 
   moveBlocks(direction) {
