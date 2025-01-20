@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom"; // Import useNavigate here
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Navbar from "./pages/Navbar";
 import Home from "./pages/Home";
 import GamePage from "./pages/GamePage";
@@ -8,20 +8,28 @@ import Login from "./pages/Login";
 
 function App() {
   const [username, setUsername] = useState(null);
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Load username from localStorage (if logged in previously)
+    // Load username from localStorage and only set if it's not null/undefined
     const storedUsername = localStorage.getItem("username");
     if (storedUsername) {
       setUsername(storedUsername);
     }
   }, []);
 
+  const handleLogin = (name) => {
+    if (name) {
+      localStorage.setItem("username", name);
+      setUsername(name);
+      navigate('/'); // Redirect to home page after successful login
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("username");
     setUsername(null);
-    navigate("/login"); // Redirect to login page after logout
+    navigate("/login");
   };
 
   return (
@@ -33,7 +41,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route
           path="/login"
-          element={<Login onLogin={(name) => setUsername(name)} />}
+          element={<Login onLogin={handleLogin} />}
         />
       </Routes>
     </div>
