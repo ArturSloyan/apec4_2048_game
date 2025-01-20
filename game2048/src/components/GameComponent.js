@@ -57,10 +57,4 @@ export default function GameComponent() {
       game.destroy(true);
     };
   }, []);
-
-  return (
-    <div id="game-container">
-      <div id="game-score">Score: something</div>
-    </div>
-  );
 }
