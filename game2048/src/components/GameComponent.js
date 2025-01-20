@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Phaser from "phaser";
-// import { Example } from "./scenes/Example";
 import { Grid } from "./scenes/Grid";
+import "./GameComponent.css";
 
 export default function GameComponent() {
   const config = {
@@ -36,7 +36,7 @@ export default function GameComponent() {
         //    forceX: false,
         //    isPaused: false,
         // allowRotation: true,
-        debug: true,
+        debug: false,
         // debugShowBody: true,
         // debugShowStaticBody: true,
         // debugShowVelocity: true,
@@ -58,5 +58,9 @@ export default function GameComponent() {
     };
   }, []);
 
-  return <div id="game-container"></div>;
+  return (
+    <div id="game-container">
+      <div id="game-score">Score: something</div>
+    </div>
+  );
 }
