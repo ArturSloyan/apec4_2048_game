@@ -1,3 +1,4 @@
+/* General Container */
 .container {
     margin: auto;
     background-color: white;
@@ -7,17 +8,20 @@
     width: 300px;
 }
 
+/* Heading */
 h1 {
     text-align: center;
     margin-bottom: 20px;
 }
 
+/* Label */
 label {
     font-weight: bold;
     margin-bottom: 8px;
     display: block;
 }
 
+/* Input Fields */
 input {
     width: 100%;
     padding: 10px;
@@ -26,6 +30,7 @@ input {
     border-radius: 4px;
 }
 
+/* Button */
 button {
     width: 100%;
     padding: 10px;
@@ -40,8 +45,56 @@ button:hover {
     background-color: palevioletred;
 }
 
+/* Message */
 #message {
     color: red;
     text-align: center;
     margin-top: 10px;
+}
+
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Username and Logout styling */
+.username-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.username-container span {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.username-container button {
+    background-color: #e74c3c;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: white;
+}
+
+.username-container button:hover {
+    background-color: #c0392b;
 }
