@@ -23,7 +23,7 @@ function Login({ onLogin }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     const { email, password } = formData;
-
+    console.log("before Login")
     try {
       const response = await fetch("http://localhost:3001/login", {
         method: "POST",
@@ -32,14 +32,13 @@ function Login({ onLogin }) {
       });
 
       const result = await response.json();
+      console.log("response" + JSON.stringify(result))
 
       if (response.ok) {
-        localStorage.setItem("username", result.username); // Save username to localStorage
+        localStorage.setItem("username", result.username); // Save username to localStorage^
+        console.log(localStorage.getItem("username"))
         onLogin(result.username); // Notify parent of successful login
-        navigate("/"); // Redirect to homepage
-        
-        // Reload the page to reflect changes immediately
-        window.location.reload();
+        // navigate("/"); // Redirect to homepage        
       }
       else {
         setMessage(result.message || "Login failed.");
@@ -47,6 +46,7 @@ function Login({ onLogin }) {
       }
       console.log(localStorage.username);
     } catch (error) {
+      console.log("error")
       setMessage("Error: " + error.message);
       setMessageColor("red");
     }

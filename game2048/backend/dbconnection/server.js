@@ -50,7 +50,7 @@ app.post('/login', async (req, res) => {
         }
 
         // Login successful - send response
-        res.status(200).json({ message: 'Login successful!', userId: user.userid });
+        res.status(200).json({ message: 'Login successful!', userId: user.userid, username: user.username });
     } catch (error) {
         console.error('Error during login:', error.message);
         res.status(500).json({ message: 'Failed to login.', error: error.message });
