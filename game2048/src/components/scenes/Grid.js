@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { ScoreManager } from './ScoreManager';
 
 export class Grid extends Phaser.Scene {
   cursors;
@@ -21,6 +22,9 @@ export class Grid extends Phaser.Scene {
   }
 
   create() {
+    // initialize score-manager
+    this.scoreManager = new ScoreManager(this);
+
     // initialize 4x4-Grid (null = empty, object = block-data)
     this.grid = [
       [null, null, null, null],
@@ -191,6 +195,7 @@ export class Grid extends Phaser.Scene {
   mergeBlocks(block, targetBlock, row, col) {
     // double value of target block
     targetBlock.value *= 2;
+    this.scoreManager.addToScore(targetBlock.value);
 
     // destroy target block and increase value
     this.tweens.add({
