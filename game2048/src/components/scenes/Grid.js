@@ -3,7 +3,6 @@ import Phaser from "phaser";
 export class Grid extends Phaser.Scene {
   cursors;
   grid; // 2D-Array for game field
-  noCreateBlock;
 
   preload() {
     this.load.image("2", "./assets/2.svg");
@@ -31,26 +30,8 @@ export class Grid extends Phaser.Scene {
     ];
 
     // start with two random blocks
-    // this.createBlock();
-    // this.createBlock();
-
-    // TODO: to test end game
-    this.addBlock(0, 0, '2', 2);
-    this.addBlock(0, 1, '4', 4);
-    this.addBlock(0, 2, '8', 8);
-    this.addBlock(0, 3, '2', 2);
-    this.addBlock(1, 0, '2', 2);
-    this.addBlock(1, 1, '4', 4);
-    this.addBlock(1, 2, '8', 8);
-    this.addBlock(1, 3, '2', 2);
-    this.addBlock(2, 0, '2', 2);
-    this.addBlock(2, 1, '4', 4);
-    this.addBlock(2, 2, '8', 8);
-    this.addBlock(2, 3, '2', 2);
-    this.addBlock(3, 0, '2', 2);
-    this.addBlock(3, 1, '4', 4);
-    this.addBlock(3, 2, '8', 8);
-    this.addBlock(3, 3, '2', 2);
+    this.createBlock();
+    this.createBlock();
 
     // key inputs
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -58,39 +39,35 @@ export class Grid extends Phaser.Scene {
 
   update() {
     if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
-      this.onClickMove("right");
+      this.moveBlocks("right");
+      this.checkGameStatus();
     }
     if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
-      this.onClickMove("left");
+      this.moveBlocks("left");
+      this.checkGameStatus();
     }
     if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
-      this.onClickMove("up");
+      this.moveBlocks("up");
+      this.checkGameStatus();
     }
     if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
-      this.onClickMove("down");
+      this.moveBlocks("down");
+      this.checkGameStatus();
     }
   }
 
-  onClickMove(direction) {
-    this.moveBlocks(direction);
-    this.createBlock();
-
-    if (this.noCreateBlock) {
-      console.log("hello");
-      // check if movable
-      canAnyBlockMove(this.grid);
+  checkGameStatus() {
+    if (containsNullValue(this.grid)) {
+      this.createBlock();
+    }
+    else if (!canAnyBlockMove(this.grid)) {
+      console.log("game over");
+      // TODO: save score
+      // TODO: show message
     }
   }
 
   createBlock() {
-    // check for any available spot
-    if (!containsNullValue(this.grid)) {
-      this.noCreateBlock = true;
-      return;
-    } else {
-      this.noCreateBlock = false;
-    }
-
     var row;
     var column;
 
@@ -268,36 +245,36 @@ function containsNullValue(twoDArray) {
   return false;
 }
 
-// TODO: not yet tested
 function canAnyBlockMove(twoDArray) {
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
       const element = twoDArray[i][j];
 
-      if(j !== 0){
-        var left = twoDArray[i][j - 1];
-        if (twoDArray.value === left){
+      // check if not outside of array
+      if (j !== 0) {
+        // if blocks have the same numbers
+        if (element.value === twoDArray[i][j - 1].value) {
+          return true; // block can be moved
+        }
+      }
+      if (j !== 3) {
+        if (element.value === twoDArray[i][j + 1].value) {
           return true;
         }
       }
-      if (j !== 3){
-        var right = twoDArray[i][j + 1];
-        if (twoDArray.value === right){
+      if (i !== 0) {
+        if (element.value === twoDArray[i - 1][j].value) {
           return true;
         }
       }
-      if (i !== 0){
-        var up = twoDArray[i - 1][j];
-        if (twoDArray.value === up){
-          return true;
-        }
-      }
-      if (i !== 3){
-        var down = twoDArray[i + 1][j];
-        if (twoDArray.value === down){
-          return true;
+      if (i !== 3) {
+        if (element.value === twoDArray[i + 1][j].value) {
+          return true; 
         }
       }
     }
   }
+
+  // game over
+  return false;
 }
