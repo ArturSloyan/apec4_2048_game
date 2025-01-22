@@ -246,35 +246,40 @@ function containsNullValue(twoDArray) {
 }
 
 function canAnyBlockMove(twoDArray) {
-  for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 4; j++) {
-      const element = twoDArray[i][j];
+  // towDArray cannot have any null values
 
-      // check if not outside of array
-      if (j !== 0) {
-        // if blocks have the same numbers
-        if (element.value === twoDArray[i][j - 1].value) {
-          return true; // block can be moved
+  for (let row = 0; row < 4; row++) {
+    for (let column = 0; column < 4; column++) {
+      const block = twoDArray[row][column];
+
+      // check that neighbour block is not outside of array
+      if (column !== 0) {
+        if (block.value === twoDArray[row][column - 1].value) {
+          // can merge to left
+          return true; 
         }
       }
-      if (j !== 3) {
-        if (element.value === twoDArray[i][j + 1].value) {
+      if (column !== 3) {
+        // can merge to right
+        if (block.value === twoDArray[row][column + 1].value) {
           return true;
         }
       }
-      if (i !== 0) {
-        if (element.value === twoDArray[i - 1][j].value) {
+      if (row !== 0) {
+        // can merge up
+        if (block.value === twoDArray[row - 1][column].value) {
           return true;
         }
       }
-      if (i !== 3) {
-        if (element.value === twoDArray[i + 1][j].value) {
+      if (row !== 3) {
+        // can merge down
+        if (block.value === twoDArray[row + 1][column].value) {
           return true; 
         }
       }
     }
   }
 
-  // game over
+  // no moves left - game over
   return false;
 }
