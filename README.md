@@ -64,13 +64,16 @@ To start the database you **need** to create `config.json` file under the path `
 Content of the file:
 ``` json
 {  
-    "db": {  
-        "user": "POSTGRES",  
-        "host": "LOCALHOST",  
-        "database": "DATABASE_NAME",  
-        "password": "DATABASE_PASSWORD",  
-        "port": 5432  
-    }  
+    "db": {
+        "user": "game2048db_user",
+        "host": "dpg-cu74klij1k6c73fhib90-a.frankfurt-postgres.render.com",
+        "database": "game2048db",
+        "password": "gYiNB9WyU6UhB0isu9vtQuDo6wMqq5wJ",
+        "port": 5432,
+        "ssl": {
+            "rejectUnauthorized": false
+        }
+    }
 }
 ```
 
