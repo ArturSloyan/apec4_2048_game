@@ -3,6 +3,7 @@ import Phaser from "phaser";
 export class Grid extends Phaser.Scene {
   cursors;
   grid; // 2D-Array for game field
+  noCreateBlock;
 
   preload() {
     this.load.image("2", "./assets/2.svg");
@@ -38,29 +39,41 @@ export class Grid extends Phaser.Scene {
   }
 
   update() {
+
     if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
-      this.moveBlocks("right");
-      this.createBlock();
+      this.onClickMove("right");
     }
     if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
-      this.moveBlocks("left");
-      this.createBlock();
+      this.onClickMove("left");
     }
     if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
-      this.moveBlocks("up");
-      this.createBlock();
+      this.onClickMove("up");
     }
     if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
-      this.moveBlocks("down");
-      this.createBlock();
+      this.onClickMove("down");
+    }
+  }
+
+  onClickMove(direction){
+    this.moveBlocks(direction);
+    this.createBlock();
+
+    if(this.noCreateBlock){
+      console.log("hello")
+      // check if movable
     }
   }
 
   createBlock() {
     // check for any available spot
     if(!containsNullValue(this.grid)){
+      this.noCreateBlock = true;
       return;
     }
+    else{
+      this.noCreateBlock = false;
+    }
+    
     var row;
     var column;
 
