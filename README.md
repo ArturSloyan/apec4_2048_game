@@ -77,6 +77,14 @@ Content of the file:
 }
 ```
 
+## Configure database server
+
+The database server is on render.com on the account of collaborator Artur Sloyan.
+
+On this website you can configure the database for specific needs. For example excluding the access of some ip addresses or adding more storage space.
+
+I used render.com because it was easy to implement and its free.
+
 ## Start database server
 
 - in terminal navigate to `apec4_2048_game\game2048\backend\dbconnection`
