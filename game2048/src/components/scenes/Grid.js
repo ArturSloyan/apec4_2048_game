@@ -31,15 +31,32 @@ export class Grid extends Phaser.Scene {
     ];
 
     // start with two random blocks
-    this.createBlock();
-    this.createBlock();
+    // this.createBlock();
+    // this.createBlock();
+
+    // TODO: to test end game
+    this.addBlock(0, 0, '2', 2);
+    this.addBlock(0, 1, '4', 4);
+    this.addBlock(0, 2, '8', 8);
+    this.addBlock(0, 3, '2', 2);
+    this.addBlock(1, 0, '2', 2);
+    this.addBlock(1, 1, '4', 4);
+    this.addBlock(1, 2, '8', 8);
+    this.addBlock(1, 3, '2', 2);
+    this.addBlock(2, 0, '2', 2);
+    this.addBlock(2, 1, '4', 4);
+    this.addBlock(2, 2, '8', 8);
+    this.addBlock(2, 3, '2', 2);
+    this.addBlock(3, 0, '2', 2);
+    this.addBlock(3, 1, '4', 4);
+    this.addBlock(3, 2, '8', 8);
+    this.addBlock(3, 3, '2', 2);
 
     // key inputs
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   update() {
-
     if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
       this.onClickMove("right");
     }
@@ -54,26 +71,26 @@ export class Grid extends Phaser.Scene {
     }
   }
 
-  onClickMove(direction){
+  onClickMove(direction) {
     this.moveBlocks(direction);
     this.createBlock();
 
-    if(this.noCreateBlock){
-      console.log("hello")
+    if (this.noCreateBlock) {
+      console.log("hello");
       // check if movable
+      canAnyBlockMove(this.grid);
     }
   }
 
   createBlock() {
     // check for any available spot
-    if(!containsNullValue(this.grid)){
+    if (!containsNullValue(this.grid)) {
       this.noCreateBlock = true;
       return;
-    }
-    else{
+    } else {
       this.noCreateBlock = false;
     }
-    
+
     var row;
     var column;
 
@@ -242,11 +259,45 @@ export class Grid extends Phaser.Scene {
 
 function containsNullValue(twoDArray) {
   for (let row of twoDArray) {
-      for (let value of row) {
-          if (value === null) {
-              return true;
-          }
+    for (let value of row) {
+      if (value === null) {
+        return true;
       }
+    }
   }
   return false;
+}
+
+// TODO: not yet tested
+function canAnyBlockMove(twoDArray) {
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
+      const element = twoDArray[i][j];
+
+      if(j !== 0){
+        var left = twoDArray[i][j - 1];
+        if (twoDArray.value === left){
+          return true;
+        }
+      }
+      if (j !== 3){
+        var right = twoDArray[i][j + 1];
+        if (twoDArray.value === right){
+          return true;
+        }
+      }
+      if (i !== 0){
+        var up = twoDArray[i - 1][j];
+        if (twoDArray.value === up){
+          return true;
+        }
+      }
+      if (i !== 3){
+        var down = twoDArray[i + 1][j];
+        if (twoDArray.value === down){
+          return true;
+        }
+      }
+    }
+  }
 }
