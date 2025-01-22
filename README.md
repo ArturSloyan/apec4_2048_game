@@ -2,9 +2,7 @@
 
 - Home Page just show a message, 
 - Game Page is playable 
-- for Register you need to start database server (see below)
-
-Login page does not exist.
+- for Register and Login you need to start database server (see below)
 
 # Start the game
 
@@ -12,7 +10,8 @@ To start our project you need [Node.js](https://nodejs.org/en/download/package-m
 
 ## Install packages
 
-Run on path "./apec4_2048_game/game2048/
+Run on path `./apec4_2048_game/game2048/`
+
 ```node
 npm install
 ```
@@ -21,7 +20,8 @@ This will install all the dependecies from package.json.
 
 ## Start game
 
-Run on path "./apec4_2048_game/game2048/
+Run on path `./apec4_2048_game/game2048/`
+
 ```node
 npm start
 ```
@@ -55,38 +55,42 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+# Database
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Setting up config file
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To start the database you **need** to create `config.json` file under the path `.\apec4_2048_game\game2048\backend\dbconnection`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Content of the file:
+``` json
+{  
+    "db": {
+        "user": "game2048db_user",
+        "host": "dpg-cu74klij1k6c73fhib90-a.frankfurt-postgres.render.com",
+        "database": "game2048db",
+        "password": "gYiNB9WyU6UhB0isu9vtQuDo6wMqq5wJ",
+        "port": 5432,
+        "ssl": {
+            "rejectUnauthorized": false
+        }
+    }
+}
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Configure database server
 
-# Running Database-Server via command `node server.js` 
+The database server is on [render.com](https://render.com/) on the account of collaborator [Artur Sloyan](https://github.com/ArturSloyan).
 
-## Setting up the config-File
+On this website you can configure the database for specific needs. For example excluding the access of some ip addresses or adding more storage space.
 
-Please note that to start the database, you must create a _config.json_-File in the _backend_-folder. That json-File must contain the following content:  
-
-`{  
-    "db": {  
-        "user": "POSTGRES",  
-        "host": "LOCALHOST",  
-        "database": "DATABASE_NAME",  
-        "password": "DATABASE_PASSWORD",  
-        "port": 5432  
-    }  
-}`  
-
-This content defines the information for the _server.js_, in which the client-data of the database is being fetched. 
+I used render.com because it was easy to implement and its free.
 
 ## Start database server
 
-If you open the terminal and navigate to the directory `cd game2048\dbconnection` and execute the command `node server.js`, the PostgreSQL Server will start running on _port 3001_.
+- in terminal navigate to `apec4_2048_game\game2048\backend\dbconnection`
+- execute `node server.js`
+- start the game and register/login your user
 
-Only after starting the server, you will be able to use the register html page (_http://localhost:3001/register.html_) to successfully register a user. 
-
+```
 If you make changes in the code, you need to restart the server and refresh the html page, so that the changes are adopted.
+```

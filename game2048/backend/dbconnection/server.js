@@ -14,7 +14,15 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // configure PostgreSQL connection
-const client = new Client(config.db);
+const dbConfig = {
+    ...config.db,
+    ssl: {
+        rejectUnauthorized: false, // Allows self-signed certificates; recommended only for development
+    },
+};
+
+// create PostgreSQL client
+const client = new Client(dbConfig);
 
 // create connection
 client.connect()
@@ -30,26 +38,22 @@ app.post('/login', async (req, res) => {
     }
 
     try {
-        // Query to find the user by email
         const query = `
             SELECT * FROM "User" WHERE EmailAddress = $1
         `;
         const result = await client.query(query, [email]);
 
-        // If no user is found, return 401 (Unauthorized)
         if (result.rows.length === 0) {
             return res.status(401).json({ message: 'Invalid email or password.' });
         }
 
         const user = result.rows[0];
 
-        // Verify the provided password matches the stored hashed password
         const isPasswordValid = await comparePasswords(password, user.password);
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Invalid email or password.' });
         }
 
-        // Login successful - send response
         res.status(200).json({ message: 'Login successful!', userId: user.userid, username: user.username });
     } catch (error) {
         console.error('Error during login:', error.message);
@@ -66,26 +70,23 @@ app.post('/register', async (req, res) => {
     }
 
     try {
-        // check if username or email already exist
         const checkQueryUsername = `
             SELECT * FROM "User" WHERE Username = $1
         `;
-
-        const checkQueryEmail =  `
+        const checkQueryEmail = `
             SELECT * FROM "User" WHERE EmailAddress = $1
         `;
 
         const existingUsername = await client.query(checkQueryUsername, [username]);
         const existingEmail = await client.query(checkQueryEmail, [email]);
 
-        if (existingUsername.rows.length > 0){
+        if (existingUsername.rows.length > 0) {
             return res.status(409).json({ message: 'Username already exists.' });
         }
         if (existingEmail.rows.length > 0) {
             return res.status(410).json({ message: 'E-Mail-Address already exists.' });
         }
 
-        // hash password to save in db
         const hashedPassword = await saltHashPassword(password);
 
         const query = `
