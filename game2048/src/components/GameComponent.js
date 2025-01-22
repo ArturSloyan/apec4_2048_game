@@ -57,4 +57,10 @@ export default function GameComponent() {
       game.destroy(true);
     };
   }, []);
+
+  return (
+    // div for game is needed
+    <div id="game-container">
+    </div>
+  );
 }
