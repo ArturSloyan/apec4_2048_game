@@ -44,37 +44,53 @@ export class Grid extends Phaser.Scene {
   update() {
     if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
       this.moveBlocks("right");
-      this.createBlock();
+      this.checkGameStatus();
     }
     if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
       this.moveBlocks("left");
-      this.createBlock();
+      this.checkGameStatus();
     }
     if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
       this.moveBlocks("up");
-      this.createBlock();
+      this.checkGameStatus();
     }
     if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
       this.moveBlocks("down");
+      this.checkGameStatus();
+    }
+  }
+
+  checkGameStatus() {
+    if (containsNullValue(this.grid)) {
       this.createBlock();
+    }
+    else if (!canAnyBlockMove(this.grid)) {
+      console.log("game over");
+      // TODO: save score
+      // TODO: show message
     }
   }
 
   createBlock() {
     var row;
     var column;
+
+    // get available spot
     do {
       row = Math.floor(Math.random() * 4);
       column = Math.floor(Math.random() * 4);
-
     } while (this.grid[row][column] != null); // get free field
-    
+
     this.addBlock(row, column, "2", 2);
   }
 
   addBlock(row, col, texture, value) {
-    // add new block to grid    
-    const block = this.physics.add.image(100 + col * 100, 100 + row * 100, texture);
+    // add new block to grid
+    const block = this.physics.add.image(
+      100 + col * 100,
+      100 + row * 100,
+      texture
+    );
     block.setCollideWorldBounds(true);
     block.value = value; // save value of block
 
@@ -203,7 +219,7 @@ export class Grid extends Phaser.Scene {
       x: 100 + col * 100,
       y: 100 + row * 100,
       duration: 200,
-      onComplete: () => {        
+      onComplete: () => {
         // update texture (number on block) dynamically based on the value
         const textureName = targetBlock.value.toString();
         targetBlock.setTexture(textureName);
@@ -221,4 +237,54 @@ export class Grid extends Phaser.Scene {
       },
     });
   }
+}
+
+function containsNullValue(twoDArray) {
+  for (let row of twoDArray) {
+    for (let value of row) {
+      if (value === null) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function canAnyBlockMove(twoDArray) {
+  // towDArray cannot have any null values
+
+  for (let row = 0; row < 4; row++) {
+    for (let column = 0; column < 4; column++) {
+      const block = twoDArray[row][column];
+
+      // check that neighbour block is not outside of array
+      if (column !== 0) {
+        if (block.value === twoDArray[row][column - 1].value) {
+          // can merge to left
+          return true; 
+        }
+      }
+      if (column !== 3) {
+        // can merge to right
+        if (block.value === twoDArray[row][column + 1].value) {
+          return true;
+        }
+      }
+      if (row !== 0) {
+        // can merge up
+        if (block.value === twoDArray[row - 1][column].value) {
+          return true;
+        }
+      }
+      if (row !== 3) {
+        // can merge down
+        if (block.value === twoDArray[row + 1][column].value) {
+          return true; 
+        }
+      }
+    }
+  }
+
+  // no moves left - game over
+  return false;
 }
