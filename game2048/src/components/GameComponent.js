@@ -59,8 +59,8 @@ export default function GameComponent() {
   }, []);
 
   return (
+    // div for game is needed
     <div id="game-container">
-      <div id="game-score">Score: something</div>
     </div>
   );
 }
