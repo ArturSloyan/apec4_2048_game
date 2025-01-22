@@ -79,7 +79,7 @@ Content of the file:
 
 ## Configure database server
 
-The database server is on render.com on the account of collaborator Artur Sloyan.
+The database server is on [render.com](https://render.com/) on the account of collaborator [Artur Sloyan](https://github.com/ArturSloyan).
 
 On this website you can configure the database for specific needs. For example excluding the access of some ip addresses or adding more storage space.
 
