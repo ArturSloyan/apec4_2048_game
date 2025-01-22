@@ -57,20 +57,29 @@ export class Grid extends Phaser.Scene {
   }
 
   createBlock() {
+    // check for any available spot
+    if(!containsNullValue(this.grid)){
+      return;
+    }
     var row;
     var column;
+
+    // get available spot
     do {
       row = Math.floor(Math.random() * 4);
       column = Math.floor(Math.random() * 4);
-
     } while (this.grid[row][column] != null); // get free field
-    
+
     this.addBlock(row, column, "2", 2);
   }
 
   addBlock(row, col, texture, value) {
-    // add new block to grid    
-    const block = this.physics.add.image(100 + col * 100, 100 + row * 100, texture);
+    // add new block to grid
+    const block = this.physics.add.image(
+      100 + col * 100,
+      100 + row * 100,
+      texture
+    );
     block.setCollideWorldBounds(true);
     block.value = value; // save value of block
 
@@ -198,7 +207,7 @@ export class Grid extends Phaser.Scene {
       x: 100 + col * 100,
       y: 100 + row * 100,
       duration: 200,
-      onComplete: () => {        
+      onComplete: () => {
         // update texture (number on block) dynamically based on the value
         const textureName = targetBlock.value.toString();
         targetBlock.setTexture(textureName);
@@ -216,4 +225,15 @@ export class Grid extends Phaser.Scene {
       },
     });
   }
+}
+
+function containsNullValue(twoDArray) {
+  for (let row of twoDArray) {
+      for (let value of row) {
+          if (value === null) {
+              return true;
+          }
+      }
+  }
+  return false;
 }
