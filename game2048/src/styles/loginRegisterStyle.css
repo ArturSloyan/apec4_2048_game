@@ -1,11 +1,22 @@
+/* Reset default margins and padding */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Ensure the body takes full height */
+}
+
 /* General Container */
 .container {
-    margin: auto;
-    background-color: white;
+    margin: 0 auto;
     padding: 20px;
+    background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 320px; /* Fixed width for consistency */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centering the container */
 }
 
 /* Heading */
@@ -24,16 +35,18 @@ label {
 /* Input Fields */
 input {
     width: 100%;
-    padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    padding: 5px; /* Smaller padding */
+    font-size: 13px; /* More compact font */
+    height: 28px; /* Reduced height for a cleaner look */
 }
 
 /* Button */
 button {
     width: 100%;
-    padding: 10px;
+    padding: 8px; /* Adjusted padding for proportionality */
     background-color: pink;
     color: white;
     border: none;
@@ -50,29 +63,6 @@ button:hover {
     color: red;
     text-align: center;
     margin-top: 10px;
-}
-
-/* Navbar Styling */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
-}
-
-.nav-links {
-    display: flex;
-    gap: 15px;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-}
-
-.navbar a:hover {
-    text-decoration: underline;
 }
 
 /* Username and Logout styling */
