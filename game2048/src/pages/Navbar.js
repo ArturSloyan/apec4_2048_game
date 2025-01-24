@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../styles/Navbar.css";
 
 function Navbar({ username, onLogout }) {
   return (
@@ -7,14 +8,13 @@ function Navbar({ username, onLogout }) {
       <div className="nav-links">
         <Link to="/">Home</Link>
         <Link to="/gamepage">Game Page</Link>
-        {!username && (
-          <>
-            <Link to="/register">Register</Link>
-            <Link to="/login">Login</Link>
-          </>
-        )}
       </div>
-      {username && (
+      {!username ? (
+        <div className="auth-links">
+          <Link to="/register">Register</Link>
+          <Link to="/login">Login</Link>
+        </div>
+      ) : (
         <div className="username-container">
           <span>{username}</span>
           <button onClick={onLogout}>Logout</button>

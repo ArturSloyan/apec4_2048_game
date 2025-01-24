@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
 import '../styles/loginRegisterStyle.css';
 
 function Login({ onLogin }) {
@@ -10,8 +9,6 @@ function Login({ onLogin }) {
 
   const [message, setMessage] = useState("");
   const [messageColor, setMessageColor] = useState("red");
-
-  const navigate = useNavigate(); // Initialize navigate
 
   const handleInputChange = (e) => {
     setFormData({
