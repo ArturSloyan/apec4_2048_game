@@ -1,3 +1,4 @@
+// Navbar.js
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
@@ -17,7 +18,10 @@ function Navbar({ username, onLogout }) {
       ) : (
         <div className="username-container">
           <span>{username}</span>
-          <button onClick={onLogout}>Logout</button>
+          <a href="#" onClick={(e) => {
+            e.preventDefault();
+            onLogout();
+          }}>Logout</a>
         </div>
       )}
     </nav>
