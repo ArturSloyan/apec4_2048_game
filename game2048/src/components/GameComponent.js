@@ -32,9 +32,14 @@ export default function GameComponent() {
       const username = localStorage.getItem('username');
       const userScore = data.score;
 
-      await saveScore(userScore, username);
-
-      alert(`Game Over -> your score - ${userScore}!!`);
+      if (username || !isEmptyOrSpaces(username)){
+        //user logged in
+        await saveScore(userScore, username);
+        alert(`Game Over -> your score - ${userScore}! your user - ${username}`);
+      }
+      else {
+        alert(`Game Over -> your score - ${userScore}!`);
+      }
     };
 
     // catch the event
@@ -45,6 +50,10 @@ export default function GameComponent() {
       BusEvent.off('gameEnd', handlePhaserEvent);
     };
   }, []);
+
+  function isEmptyOrSpaces(str){
+    return str === null || str.match(/^ *$/) !== null;
+}
 
   async function saveScore(score, username){ 
     try {
