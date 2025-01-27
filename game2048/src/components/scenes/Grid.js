@@ -6,6 +6,10 @@ export class Grid extends Phaser.Scene {
   cursors;
   grid; // 2D-Array for game field
 
+  constructor(){    
+    super({ key: 'gamegrid' });
+  }
+
   preload() {
     this.load.image("2", "./assets/2.svg");
     this.load.image("4", "./assets/4.svg");
@@ -68,7 +72,9 @@ export class Grid extends Phaser.Scene {
       // create event
       BusEvent.emit("gameEnd", { score: this.scoreManager.score });
 
-      this.scene.stop();
+      // show game over
+      this.scene.stop("gamegrid");
+      this.scene.start("gameover", {score: this.scoreManager.score});
     }
 
     // game still playable
