@@ -34,7 +34,7 @@ export default function GameComponent() {
 
       await saveScore(userScore, username);
 
-      alert(`Game Over: User - ${username}, Score - ${userScore}`);
+      alert(`Game Over -> your score - ${userScore}!!`);
     };
 
     // catch the event

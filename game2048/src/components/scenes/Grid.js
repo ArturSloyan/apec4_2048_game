@@ -64,11 +64,10 @@ export class Grid extends Phaser.Scene {
   checkGameStatus() {
     if (anyNullValue(this.grid)) {
       this.createBlock();
-    } 
-    else if (!canAnyBlockMove(this.grid)) {
+    } else if (!canAnyBlockMove(this.grid)) {
       // create event
-      BusEvent.emit('gameEnd', { score: this.scoreManager.score });
-      
+      BusEvent.emit("gameEnd", { score: this.scoreManager.score });
+
       this.scene.stop();
     }
 

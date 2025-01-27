@@ -120,12 +120,11 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// TODO: score not yet tested
-
 // route to insert score
 app.post("/score", async (req, res) => {
   const { score, username } = req.body;
 
+  // check given parameter
   if (!score || !username) {
     return res
       .status(400)
@@ -138,20 +137,30 @@ app.post("/score", async (req, res) => {
     SELECT * FROM "User" WHERE Username = $1
     `;
 
-    const existingUsername = await client.query(checkQueryUsername, [username]);
-    if (!existingUsername) {
-      return res.status(400).json({ message: "Something is wrong with score" });
+    const userByUsername = await client.query(checkQueryUsername, [username]);
+    if (userByUsername.rows.length < 1) {
+      return res.status(400).json({ message: "User was not found" });
     }
 
-    // save score
-    const date = Date.now();
+    // get current date
+    const now = new Date();
 
+    const day = String(now.getDate()).padStart(2, "0");
+    const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+
+    const date = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+    // save score
     const query = `
             INSERT INTO "Scores" (Date, Score, UserId)
             VALUES ($1, $2, $3) RETURNING ScoreId
         `;
 
-    const values = [date, score, existingUsername.rows[0].userid];
+    const values = [date, score, userByUsername.rows[0].userid];
 
     const result = await client.query(query, values);
     res.status(201).json({
