@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Phaser from "phaser";
 import { Grid } from "./scenes/Grid";
 import "./GameComponent.css";
+import BusEvent from "./BusEvent";
 
 export default function GameComponent() {
   const config = {
@@ -12,55 +13,68 @@ export default function GameComponent() {
     physics: {
       default: "arcade",
       arcade: {
-        //    x: 0,
-        //    y: 0,
-        //    width: scene.sys.scale.width,
-        //    height: scene.sys.scale.height,
         gravity: {
           x: 0,
           y: 0,
         },
-        // checkCollision: {
-        //   up: true,
-        //   down: true,
-        //   left: true,
-        //   right: true,
-        // },
-        //    customUpdate: false,
-        //    fixedStep: true,
-        //    fps: 60,
-        //    timeScale: 1,     // 2.0 = half speed, 0.5 = double speed
-        //    customUpdate: false,
-        //    overlapBias: 4,
-        //    tileBias: 16,
-        //    forceX: false,
-        //    isPaused: false,
-        // allowRotation: true,
         debug: false,
-        // debugShowBody: true,
-        // debugShowStaticBody: true,
-        // debugShowVelocity: true,
-        //    debugBodyColor: 0xff00ff,
-        //    debugStaticBodyColor: 0x0000ff,
-        //    debugVelocityColor: 0x00ff00,
-        //    maxEntries: 16,
-        //    useTree: true   // set false if amount of dynamic bodies > 5000
       },
     },
+    // backgroundColor: "#a8dadc",
     scene: Grid,
   };
 
   useEffect(() => {
     const game = new Phaser.Game(config);
 
+    // handle event
+    const handlePhaserEvent = (data) => {
+      console.log('Event received from Phaser:', data);
+      // React to the event, e.g., update state or trigger an animation
+      alert(`Phaser Event: Pointer at (${data.x}, ${data.y})`);
+    };
+
+    // catch the event
+    BusEvent.on('gameEnd', handlePhaserEvent);
+
     return () => {
       game.destroy(true);
+      BusEvent.off('gameEnd', handlePhaserEvent);
     };
   }, []);
 
+  // TODO: not called or tested
+  async function saveScore(score, username){ 
+    try {
+      console.log("save score started");
+
+      const response =  await fetch("http://localhost:3001/score", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ score, username }),
+      });
+  
+      if (response.ok) {
+        console.log('successfull')   
+      } else {
+        console.log('did not work')
+      }
+    } catch (error) {
+      console.log('help')
+    }
+  }
+
+  function onStartClick(e){
+    // TODO: do i need this??
+  }
+
   return (
     // div for game is needed
-    <div id="game-container">
+    <div>
+      <div id="game-container"></div>
+      <button onClick={onStartClick}>New Game</button>
     </div>
   );
 }
