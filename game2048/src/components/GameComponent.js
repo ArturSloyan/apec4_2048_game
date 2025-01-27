@@ -28,10 +28,13 @@ export default function GameComponent() {
     const game = new Phaser.Game(config);
 
     // handle event
-    const handlePhaserEvent = (data) => {
-      console.log('Event received from Phaser:', data);
-      // React to the event, e.g., update state or trigger an animation
-      alert(`Phaser Event: Pointer at (${data.x}, ${data.y})`);
+    const handlePhaserEvent = async (data) => {
+      const username = localStorage.getItem('username');
+      const userScore = data.score;
+
+      await saveScore(userScore, username);
+
+      alert(`Game Over: User - ${username}, Score - ${userScore}`);
     };
 
     // catch the event
@@ -43,11 +46,8 @@ export default function GameComponent() {
     };
   }, []);
 
-  // TODO: not called or tested
   async function saveScore(score, username){ 
     try {
-      console.log("save score started");
-
       const response =  await fetch("http://localhost:3001/score", {
         method: "POST",
         headers: {
@@ -59,10 +59,10 @@ export default function GameComponent() {
       if (response.ok) {
         console.log('successfull')   
       } else {
-        console.log('did not work')
+        console.log('something went wrong')
       }
     } catch (error) {
-      console.log('help')
+      console.log("Error: " + error.message)
     }
   }
 

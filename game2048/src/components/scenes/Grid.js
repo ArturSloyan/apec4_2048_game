@@ -34,7 +34,7 @@ export class Grid extends Phaser.Scene {
       [null, null, null, null],
     ];
 
-    // start with two random blocks
+    // create two random blocks
     this.createBlock();
     this.createBlock();
 
@@ -62,7 +62,7 @@ export class Grid extends Phaser.Scene {
   }
 
   checkGameStatus() {
-    if (containsNullValue(this.grid)) {
+    if (anyNullValue(this.grid)) {
       this.createBlock();
     } 
     else if (!canAnyBlockMove(this.grid)) {
@@ -71,6 +71,8 @@ export class Grid extends Phaser.Scene {
       
       this.scene.stop();
     }
+
+    // game still playable
   }
 
   createBlock() {
@@ -241,7 +243,7 @@ export class Grid extends Phaser.Scene {
   }
 }
 
-function containsNullValue(twoDArray) {
+function anyNullValue(twoDArray) {
   for (let row of twoDArray) {
     for (let value of row) {
       if (value === null) {
