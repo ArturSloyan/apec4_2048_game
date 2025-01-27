@@ -1,5 +1,6 @@
 import Phaser from "phaser";
-import { ScoreManager } from './ScoreManager';
+import { ScoreManager } from "./ScoreManager";
+import BusEvent from "../BusEvent";
 
 export class Grid extends Phaser.Scene {
   cursors;
@@ -33,7 +34,7 @@ export class Grid extends Phaser.Scene {
       [null, null, null, null],
     ];
 
-    // start with two random blocks
+    // create two random blocks
     this.createBlock();
     this.createBlock();
 
@@ -61,14 +62,16 @@ export class Grid extends Phaser.Scene {
   }
 
   checkGameStatus() {
-    if (containsNullValue(this.grid)) {
+    if (anyNullValue(this.grid)) {
       this.createBlock();
+    } else if (!canAnyBlockMove(this.grid)) {
+      // create event
+      BusEvent.emit("gameEnd", { score: this.scoreManager.score });
+
+      this.scene.stop();
     }
-    else if (!canAnyBlockMove(this.grid)) {
-      console.log("game over");
-      // TODO: save score
-      // TODO: show message
-    }
+
+    // game still playable
   }
 
   createBlock() {
@@ -239,7 +242,7 @@ export class Grid extends Phaser.Scene {
   }
 }
 
-function containsNullValue(twoDArray) {
+function anyNullValue(twoDArray) {
   for (let row of twoDArray) {
     for (let value of row) {
       if (value === null) {
@@ -261,7 +264,7 @@ function canAnyBlockMove(twoDArray) {
       if (column !== 0) {
         if (block.value === twoDArray[row][column - 1].value) {
           // can merge to left
-          return true; 
+          return true;
         }
       }
       if (column !== 3) {
@@ -279,7 +282,7 @@ function canAnyBlockMove(twoDArray) {
       if (row !== 3) {
         // can merge down
         if (block.value === twoDArray[row + 1][column].value) {
-          return true; 
+          return true;
         }
       }
     }
