@@ -3,6 +3,7 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%; /* Ensure the body takes full height */
+    font-family: Arial, Helvetica, sans-serif; /* Consistent font throughout */
 }
 
 /* General Container */
@@ -17,78 +18,75 @@ html, body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /* Centering the container */
+    box-sizing: border-box; /* Ensure padding doesn't overflow */
 }
 
 /* Heading */
 h1 {
     text-align: center;
     margin-bottom: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
 }
 
 /* Label */
 label {
-    font-weight: bolder;
+    font-weight: bold;
     margin-bottom: 8px;
     display: block;
-    font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: #555;
 }
 
 /* Input Fields */
 input {
-    width: 100%;
+    width: 100%; /* Full width within the container */
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    padding: 5px; /* Smaller padding */
-    font-size: 13px; /* More compact font */
-    height: 28px; /* Reduced height for a cleaner look */
+    padding: 10px; /* Slightly larger padding for better usability */
+    font-size: 14px;
+    height: 38px; /* Slightly larger for a cleaner look */
+    box-sizing: border-box; /* Include padding and border in width */
 }
 
 /* Button */
 button {
     width: 100%;
-    padding: 8px; /* Adjusted padding for proportionality */
+    padding: 10px; /* Proportional padding */
     background-color: #758467aa;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    display: block;
+    margin: 10px auto 0; /* Space above the button */
+    font-size: 16px; /* Slightly larger font for better readability */
+    font-weight: bold;
 }
 
 button:hover {
-    background-color: #758467;
+    background-color: #758467; /* Darker shade on hover */
 }
 
 /* Message */
 #message {
     color: red;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 15px;
+    font-size: 14px;
 }
 
-/* Username and Logout styling */
-.username-container {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.username-container span {
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-.username-container button {
-    background-color: #e74c3c;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    color: white;
-}
-
-.username-container button:hover {
-    background-color: #c0392b;
+/* Responsive Design */
+@media (max-width: 400px) {
+    .container {
+        width: 90%; /* Adjust width for smaller screens */
+    }
+    input {
+        font-size: 13px; /* Adjust input font size */
+    }
+    button {
+        font-size: 14px; /* Adjust button font size */
+    }
 }
