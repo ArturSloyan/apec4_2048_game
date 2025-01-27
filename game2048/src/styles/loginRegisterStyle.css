@@ -23,13 +23,17 @@ html, body {
 h1 {
     text-align: center;
     margin-bottom: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 30px;
 }
 
 /* Label */
 label {
-    font-weight: bold;
+    font-weight: bolder;
     margin-bottom: 8px;
     display: block;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Input Fields */
@@ -47,7 +51,7 @@ input {
 button {
     width: 100%;
     padding: 8px; /* Adjusted padding for proportionality */
-    background-color: pink;
+    background-color: #758467aa;
     color: white;
     border: none;
     border-radius: 4px;
@@ -55,7 +59,7 @@ button {
 }
 
 button:hover {
-    background-color: palevioletred;
+    background-color: #758467;
 }
 
 /* Message */

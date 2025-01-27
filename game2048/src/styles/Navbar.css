@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #333;
+  background-color: whitesmoke;
   color: white;
 }
 
@@ -19,12 +19,37 @@
 }
 
 .navbar a {
-  color: white;
+  color: black;
   text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  display: inline-block;
+  position: relative;
 }
 
-.navbar a:hover {
-  text-decoration: underline;
+.navbar a:hover::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(1);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #758467;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.navbar a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #bbcea8;
+  transform-origin: bottom left;
+  transition: transform 0.25s ease-out;
 }
 
 .username-container {
