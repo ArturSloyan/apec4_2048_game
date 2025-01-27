@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import Phaser from "phaser";
 import { Grid } from "./scenes/Grid";
-import "./GameComponent.css";
+import { GameOver } from "./scenes/GameOver";
 import BusEvent from "./BusEvent";
+import "./GameComponent.css";
 
 export default function GameComponent() {
   const config = {
@@ -21,39 +22,31 @@ export default function GameComponent() {
       },
     },
     // backgroundColor: "#a8dadc",
-    scene: Grid,
+    scene: [ Grid, GameOver ]
   };
 
   useEffect(() => {
     const game = new Phaser.Game(config);
-
+  
     // handle event
-    const handlePhaserEvent = async (data) => {
+    const handleGameEndEvent = async (data) => {
       const username = localStorage.getItem('username');
       const userScore = data.score;
 
       if (username || !isEmptyOrSpaces(username)){
         //user logged in
         await saveScore(userScore, username);
-        alert(`Game Over -> your score - ${userScore}! your user - ${username}`);
-      }
-      else {
-        alert(`Game Over -> your score - ${userScore}!`);
       }
     };
 
     // catch the event
-    BusEvent.on('gameEnd', handlePhaserEvent);
+    BusEvent.on('gameEnd', handleGameEndEvent);
 
     return () => {
       game.destroy(true);
-      BusEvent.off('gameEnd', handlePhaserEvent);
+      BusEvent.off('gameEnd', handleGameEndEvent);
     };
   }, []);
-
-  function isEmptyOrSpaces(str){
-    return str === null || str.match(/^ *$/) !== null;
-}
 
   async function saveScore(score, username){ 
     try {
@@ -86,4 +79,8 @@ export default function GameComponent() {
       <button onClick={onStartClick}>New Game</button>
     </div>
   );
+}
+
+function isEmptyOrSpaces(str){
+  return str === null || str.match(/^ *$/) !== null;
 }
