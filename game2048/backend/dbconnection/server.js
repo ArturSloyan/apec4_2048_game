@@ -143,6 +143,7 @@ app.post("/score", async (req, res) => {
     }
 
     // get current date
+    // TODO somethings wrong with date
     const now = new Date();
 
     const day = String(now.getDate()).padStart(2, "0");
@@ -172,6 +173,29 @@ app.post("/score", async (req, res) => {
     res
       .status(500)
       .json({ message: "Failed to save a score.", error: error.message });
+  }
+});
+
+app.get("/leaderboard", async (req, res) => {
+  try {
+    const result = await client.query(`
+      SELECT 
+        u.Username, 
+        s.Score, 
+        TO_CHAR(s.Date, 'YYYY-MM-DD"T00:00:00Z"') AS Date
+      FROM 
+        "Scores" s 
+      JOIN 
+        "User" u ON s.UserId = u.UserId 
+      ORDER BY 
+        s.Score DESC 
+      LIMIT 10;
+    `);
+    
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching leaderboard:", error);
+    res.status(500).send("Server Error");
   }
 });
 
