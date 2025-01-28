@@ -50,14 +50,14 @@ const Home = () => {
               <p>Master of tiny wins and epic comebacks.</p>
             </div>
             <div>
-              <h3>
-                <a href="https://github.com/astr0Nika">Nika Zupancic</a>
-              </h3>
+              <h3>Nika Zupancic</h3>
               <p>Fueled by late nights, caffeine, and "aha!" moments.</p>
             </div>
             <div class="collective">
               <p>
-                Together, we’re the <b>ANH Games</b> team, fueled by energy drinks, endless retries and that sweet dopamine hit of a mergedblock.
+                Together, we’re the <b>ANH Games</b> team, fueled by energy
+                drinks, endless retries and that sweet dopamine hit of a merged
+                block.
               </p>
             </div>
           </div>

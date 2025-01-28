@@ -8,7 +8,7 @@ function Navbar({ username, onLogout }) {
     <nav className="navbar">
       <div className="nav-links">
         <Link to="/">Home</Link>
-        <Link to="/gamepage">Game Page</Link>
+        <Link to="/gamepage">Game 2048</Link>
       </div>
       {!username ? (
         <div className="auth-links">
