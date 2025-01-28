@@ -45,7 +45,7 @@ export default function LeaderboardComponent() {
                 <td>{index + 1}</td>
                 <td>{entry.username}</td>
                 <td>{entry.score}</td>
-                <td>{new Date(entry.date).toLocaleDateString()}</td>
+                <td>{new Date(entry.date).toLocaleString()}</td>
               </tr>
             ))}
           </tbody>

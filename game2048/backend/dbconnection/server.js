@@ -182,7 +182,7 @@ app.get("/leaderboard", async (req, res) => {
       SELECT 
         u.Username, 
         s.Score, 
-        TO_CHAR(s.Date, 'YYYY-MM-DD"T00:00:00Z"') AS Date
+        s.Date
       FROM 
         "Scores" s 
       JOIN 
