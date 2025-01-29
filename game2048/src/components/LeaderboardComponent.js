@@ -27,9 +27,9 @@ export default function LeaderboardComponent() {
 
   return (
     <div className="leaderboard-container">
-      <h2>Rangliste</h2>
+      <h2>Leaderboard</h2>
       {leaderboard.length === 0 ? (  
-        <p>Rangliste ladet...</p>   // ✅ Debugging UI message
+        <p>Loading Leaderboard...</p>   // Debugging UI message
       ) : (
         <table>
           <thead>
