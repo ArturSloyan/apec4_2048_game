@@ -1,6 +1,6 @@
 import GameComponent from "../components/GameComponent";
 import LeaderboardComponent from "../components/LeaderboardComponent";
-import '../styles/HelloComponent.css'; // Import the new CSS file for Home component
+import '../styles/GamePage.css';
 
 const Home = () => {
   return (

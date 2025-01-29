@@ -1,0 +1,74 @@
+  
+  /* Home Page Layout */
+  .home-container {
+    display: flex;
+  
+    align-items: flex-start; /* Align components to the top */
+    padding: 20px;
+    gap: 20px; /* Space between components */
+    flex-wrap: wrap; /* Allow components to stack on smaller screens */
+    width: 100%; /* Ensure it spans the full width */
+  }
+  
+  .game-container {
+    flex: 1;
+    min-width: 300px; /* Set a minimum width for the game component */
+  }
+  
+  .leaderboard-container {
+    width: 300px; /* Fixed width for leaderboard */
+    margin: 20px 0; /* Optional margin for top and bottom */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  /* Leaderboard Table Styling */
+  .leaderboard-container h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .leaderboard-container table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .leaderboard-container th,
+  .leaderboard-container td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .leaderboard-container th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .leaderboard-container tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .leaderboard-container tr:hover {
+    background-color: #ddd;
+  }
+  
+  .leaderboard-container td {
+    font-size: 16px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .home-container {
+      flex-direction: column; /* Stack components vertically on smaller screens */
+      align-items: center;
+    }
+  
+    .leaderboard-container {
+      width: 90%; /* Adjust width for smaller screens */
+    }
+  }
