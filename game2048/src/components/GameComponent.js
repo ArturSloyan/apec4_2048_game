@@ -68,15 +68,10 @@ export default function GameComponent() {
     }
   }
 
-  function onStartClick(e){
-    // TODO: do i need this??
-  }
-
   return (
     // div for game is needed
     <div>
       <div id="game-container"></div>
-      <button onClick={onStartClick}>New Game</button>
     </div>
   );
 }

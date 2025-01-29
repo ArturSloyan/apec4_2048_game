@@ -1,0 +1,83 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: #343a40;
+}
+
+.welcome-text {
+  background-color: #bfd3c1;
+  color: #343a40;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.welcome-text h1 {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+.welcome-text p {
+  margin: 0.5rem 0 0;
+  font-size: 1.2rem;
+}
+
+main {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+section {
+  flex: 1 1 calc(25% - 1rem);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 250px;
+}
+
+section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+section p {
+  line-height: 1.6;
+  margin: 0.5rem 0;
+}
+
+.about-us {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  text-align: center;
+}
+
+.about-us div {
+  background-color: #ffebe9;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.collective {
+  grid-column: span 3;
+  background-color: #dee2e6;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #bfd3c1;
+  color: #343a40;
+  margin-top: 2rem;
+}
