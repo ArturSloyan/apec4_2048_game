@@ -22,6 +22,9 @@ export class Grid extends Phaser.Scene {
   }
 
   create() {
+     // Set the background color to brown
+    this.cameras.main.setBackgroundColor("#FFFFFF");
+
     // initialize score-manager
     this.scoreManager = new ScoreManager(this);
 
