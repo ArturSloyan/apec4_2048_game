@@ -175,6 +175,29 @@ app.post("/score", async (req, res) => {
   }
 });
 
+app.get("/leaderboard", async (req, res) => {
+  try {
+    const result = await client.query(`
+      SELECT 
+        u.Username, 
+        s.Score, 
+        s.Date
+      FROM 
+        "Scores" s 
+      JOIN 
+        "User" u ON s.UserId = u.UserId 
+      ORDER BY 
+        s.Score DESC 
+      LIMIT 10;
+    `);
+    
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching leaderboard:", error);
+    res.status(500).send("Server Error");
+  }
+});
+
 // start server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
