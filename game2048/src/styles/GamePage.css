@@ -9,12 +9,7 @@
     flex-wrap: wrap; /* Allow components to stack on smaller screens */
     width: 100%; /* Ensure it spans the full width */
   }
-  
-  .game-container {
-    flex: 1;
-    min-width: 300px; /* Set a minimum width for the game component */
-  }
-  
+
   .leaderboard-container {
     width: 300px; /* Fixed width for leaderboard */
     margin: 20px 0; /* Optional margin for top and bottom */

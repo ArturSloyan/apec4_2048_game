@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/LeaderboardComponent.css";
+import "../styles/GamePage.css"
 
 export default function LeaderboardComponent() {
   const [leaderboard, setLeaderboard] = useState([]);
