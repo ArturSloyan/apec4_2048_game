@@ -51,7 +51,7 @@ const Home = () => {
             </div>
             <div>
               <h3>Nika Zupancic</h3>
-              <p>Fueled by late nights, caffeine, and "aha!" moments.</p>
+              <p>Writes code, refactors, regrets, repeats.</p>
             </div>
             <div class="collective">
               <p>
