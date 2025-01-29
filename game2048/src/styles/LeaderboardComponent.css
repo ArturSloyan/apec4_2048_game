@@ -1,56 +1,144 @@
+/* Leaderboard Container */
 .leaderboard-container {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    overflow-x: auto;
-    width: fit-content;
+  background: linear-gradient(145deg, #faf8ef, #f5f0e6);
+  border-radius: 15px;
+  box-shadow: 
+      0 10px 20px rgba(0, 0, 0, 0.1),
+      0 6px 6px rgba(0, 0, 0, 0.05),
+      inset 0 -2px 5px rgba(0, 0, 0, 0.03);
+  padding: 20px;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.leaderboard-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+  pointer-events: none;
+}
+
+.leaderboard-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+      0 15px 30px rgba(0, 0, 0, 0.12),
+      0 8px 8px rgba(0, 0, 0, 0.06),
+      inset 0 -2px 5px rgba(0, 0, 0, 0.03);
+}
+
+/* Header Styling */
+.leaderboard-container h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #776e65;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.leaderboard-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #68A691, #8FD5A6);
+  border-radius: 2px;
+}
+
+/* Table Styling */
+.leaderboard-container table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+/* Header Cells */
+.leaderboard-container th {
+  background: linear-gradient(135deg, #68A691, #4E8576);
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 12px;
+  text-align: center;
+}
+
+.leaderboard-container th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.leaderboard-container th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* Table Cells */
+.leaderboard-container td {
+  padding: 12px;
+  font-size: 14px;
+  color: #776e65;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+/* Row Styling */
+.leaderboard-container tr {
+  transition: all 0.3s ease;
+}
+
+.leaderboard-container tr:nth-child(even) {
+  background-color: rgba(184, 242, 230, 0.1);
+}
+
+.leaderboard-container tr:hover {
+  background: rgba(104, 166, 145, 0.1);
+  transform: translateX(5px);
+}
+
+/* Score Animation */
+@keyframes scoreUpdate {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.score-update {
+  animation: scoreUpdate 0.5s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .leaderboard-container {
+      padding: 15px;
+      margin: 10px;
+      border-radius: 10px;
   }
-  
+
   .leaderboard-container h2 {
-    margin-bottom: 15px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
+      font-size: 20px;
+      margin-bottom: 15px;
   }
-  
-  .leaderboard-container table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
+
   .leaderboard-container th,
   .leaderboard-container td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: center;
+      padding: 10px 6px;
+      font-size: 13px;
   }
-  
-  .leaderboard-container th {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .leaderboard-container tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .leaderboard-container tr:hover {
-    background-color: #ddd;
-  }
-  
-  .leaderboard-container td {
-    font-size: 16px;
-  }
-  
-  @media (max-width: 768px) {
-    .home-container {
-      flex-direction: column; /* Stack components vertically on smaller screens */
-      align-items: center;
-    }
-  
-    .leaderboard-container {
-      width: 90%; /* Adjust width for smaller screens */
-    }
-  }
-  
+}
