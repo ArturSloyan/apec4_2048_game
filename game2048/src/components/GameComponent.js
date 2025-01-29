@@ -4,6 +4,7 @@ import { Grid } from "./scenes/Grid";
 import { GameOver } from "./scenes/GameOver";
 import BusEvent from "./BusEvent";
 import "./GameComponent.css";
+import "../styles/GamePage.css"
 
 export default function GameComponent() {
   const config = {
