@@ -143,7 +143,6 @@ app.post("/score", async (req, res) => {
     }
 
     // get current date
-    // TODO somethings wrong with date
     const now = new Date();
 
     const day = String(now.getDate()).padStart(2, "0");
